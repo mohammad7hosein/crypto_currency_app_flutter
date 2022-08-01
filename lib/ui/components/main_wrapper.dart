@@ -1,3 +1,4 @@
+import 'package:cripto_currency_app_flutter/constants/my_page.dart';
 import 'package:cripto_currency_app_flutter/ui/components/bottom_nav_bar.dart';
 import 'package:cripto_currency_app_flutter/ui/screens/home_screen.dart';
 import 'package:cripto_currency_app_flutter/ui/screens/market_screen.dart';
@@ -7,7 +8,7 @@ import 'package:flutter/material.dart';
 
 class MainWrapper extends StatelessWidget {
   MainWrapper({Key? key}) : super(key: key);
-  final PageController _pageController = PageController(initialPage: 0);
+  final PageController _pageController = PageController(initialPage: MyPage.Home.index);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class MainWrapper extends StatelessWidget {
       ),
       body: PageView(
         controller: _pageController,
-        children: const [
+        children: [
           HomeScreen(),
           MarketScreen(),
           ProfileScreen(),
