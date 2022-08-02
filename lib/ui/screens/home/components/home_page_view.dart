@@ -11,8 +11,8 @@ class HomePageView extends StatefulWidget {
 }
 
 class _HomePageViewState extends State<HomePageView> {
-  final List<String> images = [
-    'assets/images/image1.png',
+  var images = [
+    "assets/images/image1.png",
     "assets/images/image2.png",
     "assets/images/image3.png",
     "assets/images/image4.png",
@@ -51,7 +51,8 @@ class _HomePageViewState extends State<HomePageView> {
                   effect: const ExpandingDotsEffect(
                     dotWidth: 10,
                     dotHeight: 10,
-                    expansionFactor: 2.5,
+                   activeDotColor: Colors.white,
+                    expansionFactor: 2,
                   ),
                   onDotClicked: (index) => widget.pageController.animateToPage(
                       index,

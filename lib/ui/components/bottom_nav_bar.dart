@@ -28,7 +28,7 @@ class BottomNavBar extends StatelessWidget {
                           duration: const Duration(milliseconds: 300),
                           curve: Curves.easeInOut);
                     },
-                    icon: const Icon(Icons.home_rounded),
+                    icon: const Icon(Icons.home_filled),
                   ),
                   IconButton(
                     onPressed: () {
