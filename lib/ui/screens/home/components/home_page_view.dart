@@ -49,8 +49,8 @@ class _HomePageViewState extends State<HomePageView> {
                   controller: widget.pageController,
                   count: 4,
                   effect: const ExpandingDotsEffect(
-                    dotWidth: 10,
-                    dotHeight: 10,
+                    dotWidth: 5,
+                    dotHeight: 5,
                    activeDotColor: Colors.white,
                     expansionFactor: 2,
                   ),

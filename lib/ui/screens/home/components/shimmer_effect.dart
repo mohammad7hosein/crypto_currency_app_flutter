@@ -33,7 +33,7 @@ class ShimmerEffect extends StatelessWidget {
                       children: [
                         Container(
                           width: 50,
-                          height: 15,
+                          height: 10,
                           margin: const EdgeInsets.only(bottom: 8),
                           decoration: BoxDecoration(
                             color: Colors.white,
@@ -42,7 +42,7 @@ class ShimmerEffect extends StatelessWidget {
                         ),
                         Container(
                           width: 25,
-                          height: 15,
+                          height: 10,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10),
@@ -72,7 +72,7 @@ class ShimmerEffect extends StatelessWidget {
                       children: [
                         Container(
                           width: 50,
-                          height: 15,
+                          height: 10,
                           margin: const EdgeInsets.only(bottom: 8),
                           decoration: BoxDecoration(
                             color: Colors.white,
@@ -81,7 +81,7 @@ class ShimmerEffect extends StatelessWidget {
                         ),
                         Container(
                           width: 25,
-                          height: 15,
+                          height: 10,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10),

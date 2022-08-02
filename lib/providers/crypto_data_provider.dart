@@ -10,10 +10,10 @@ class CryptoDataProvider extends ChangeNotifier {
   late ResponseModel state;
   var response;
 
-  getTopMarketCapData() async {
+  getTopMarketCapsData() async {
     state = ResponseModel.loading();
     try {
-      response = await api.getTopMarketCapData();
+      response = await api.getTopMarketCapsData();
       if (response.statusCode == 200) {
         cryptoData = AllCryptoModel.fromJson(response.data);
         state = ResponseModel.completed(cryptoData);
@@ -26,4 +26,40 @@ class CryptoDataProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  getTopGainersData() async {
+    state = ResponseModel.loading();
+    try {
+      response = await api.getTopGainersData();
+      if (response.statusCode == 200) {
+        cryptoData = AllCryptoModel.fromJson(response.data);
+        state = ResponseModel.completed(cryptoData);
+      } else {
+        state = ResponseModel.error("something wrong...");
+      }
+      notifyListeners();
+    } catch (e) {
+      state = ResponseModel.error("please check your connection...");
+      notifyListeners();
+    }
+  }
+
+  getTopLosersData() async {
+    state = ResponseModel.loading();
+    try {
+      response = await api.getTopLosersData();
+      if (response.statusCode == 200) {
+        cryptoData = AllCryptoModel.fromJson(response.data);
+        state = ResponseModel.completed(cryptoData);
+      } else {
+        state = ResponseModel.error("something wrong...");
+      }
+      notifyListeners();
+    } catch (e) {
+      state = ResponseModel.error("please check your connection...");
+      notifyListeners();
+    }
+  }
+
+
 }

@@ -10,13 +10,16 @@ class ThemeSwitcher extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
-    return IconButton(
-      onPressed: () {
-        themeProvider.toggleTheme();
-      },
-      icon: Icon(themeProvider.isDarkMode
-          ? CupertinoIcons.moon_fill
-          : CupertinoIcons.sun_max_fill),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5),
+      child: IconButton(
+        onPressed: () {
+          themeProvider.toggleTheme();
+        },
+        icon: Icon(themeProvider.isDarkMode
+            ? CupertinoIcons.moon_fill
+            : CupertinoIcons.sun_max_fill),
+      ),
     );
   }
 }

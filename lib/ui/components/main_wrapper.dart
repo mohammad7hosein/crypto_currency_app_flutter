@@ -15,7 +15,8 @@ class MainWrapper extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
-        child: const Icon(Icons.compare_arrows_rounded),
+        backgroundColor: Theme.of(context).primaryColor,
+        child: Icon(Icons.compare_arrows_rounded, color: Theme.of(context).primaryColorLight,),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomNavBar(

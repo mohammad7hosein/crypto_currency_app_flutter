@@ -9,7 +9,7 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
-      color: Colors.amber,
+      color: Theme.of(context).primaryColor,
       shape: const CircularNotchedRectangle(),
       notchMargin: 5,
       child: SizedBox(
@@ -28,7 +28,7 @@ class BottomNavBar extends StatelessWidget {
                           duration: const Duration(milliseconds: 300),
                           curve: Curves.easeInOut);
                     },
-                    icon: const Icon(Icons.home_filled),
+                    icon: const Icon(Icons.home_rounded),
                   ),
                   IconButton(
                     onPressed: () {
