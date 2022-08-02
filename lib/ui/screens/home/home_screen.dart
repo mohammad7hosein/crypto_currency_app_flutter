@@ -1,6 +1,9 @@
+import 'package:cripto_currency_app_flutter/network/response_model.dart';
+import 'package:cripto_currency_app_flutter/providers/crypto_data_provider.dart';
 import 'package:cripto_currency_app_flutter/ui/screens/home/components/home_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
+import 'package:provider/provider.dart';
 import '../../components/theme_switcher.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -20,6 +23,15 @@ class _HomeScreenState extends State<HomeScreen> {
     "Top Gainers",
     "Top Losers"
   ];
+
+  @override
+  void initState() {
+    super.initState();
+
+    final cryptoProvider =
+        Provider.of<CryptoDataProvider>(context, listen: false);
+    cryptoProvider.getTopMarketCapData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +56,20 @@ class _HomeScreenState extends State<HomeScreen> {
               buildMovingText(context),
               buildBuySellButtons(),
               buildChoiceChips(context),
+              Consumer<CryptoDataProvider>(
+                builder: (context, cryptoDataProvider, child) {
+                  switch (cryptoDataProvider.state.status) {
+                    case StateData.LOADING:
+                      return Text("loading");
+                    case StateData.COMPLETED:
+                      return Text("data");
+                    case StateData.ERROR:
+                      return Text("error");
+                    default:
+                      return Text("");
+                  }
+                },
+              ),
             ],
           ),
         ),

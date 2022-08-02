@@ -1,4 +1,5 @@
 import 'package:cripto_currency_app_flutter/constants/my_theme.dart';
+import 'package:cripto_currency_app_flutter/providers/crypto_data_provider.dart';
 import 'package:cripto_currency_app_flutter/providers/theme_provider.dart';
 import 'package:cripto_currency_app_flutter/ui/components/main_wrapper.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +14,8 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (context) => ThemeProvider(),
-        ),
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
+        ChangeNotifierProvider(create: (context) => CryptoDataProvider()),
       ],
       child: const MyApp(),
     ),
