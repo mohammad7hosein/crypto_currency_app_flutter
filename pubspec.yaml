@@ -21,6 +21,7 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   marquee: ^2.2.3
   dio: ^4.0.6
+  shimmer: ^2.0.0
 
 dev_dependencies:
   flutter_test:

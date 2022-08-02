@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
 import 'package:provider/provider.dart';
 import '../../components/theme_switcher.dart';
+import 'components/shimmer_effect.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -56,19 +57,22 @@ class _HomeScreenState extends State<HomeScreen> {
               buildMovingText(context),
               buildBuySellButtons(),
               buildChoiceChips(context),
-              Consumer<CryptoDataProvider>(
-                builder: (context, cryptoDataProvider, child) {
-                  switch (cryptoDataProvider.state.status) {
-                    case StateData.LOADING:
-                      return Text("loading");
-                    case StateData.COMPLETED:
-                      return Text("data");
-                    case StateData.ERROR:
-                      return Text("error");
-                    default:
-                      return Text("");
-                  }
-                },
+              SizedBox(
+                height: 500,
+                child: Consumer<CryptoDataProvider>(
+                  builder: (context, cryptoDataProvider, child) {
+                    switch (cryptoDataProvider.state.status) {
+                      case StateData.LOADING:
+                        return const ShimmerEffect();
+                      case StateData.COMPLETED:
+                        return const Text("data");
+                      case StateData.ERROR:
+                        return Text(cryptoDataProvider.state.message);
+                      default:
+                        return const Text("");
+                    }
+                  },
+                ),
               ),
             ],
           ),
@@ -77,34 +81,35 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Padding buildChoiceChips(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+  SingleChildScrollView buildChoiceChips(BuildContext context) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      scrollDirection: Axis.horizontal,
       child: Row(
-        children: [
-          Wrap(
-            spacing: 10,
-            children: List.generate(
-              _choicesList.length,
-              (index) {
-                return ChoiceChip(
-                  label: Text(
-                    _choicesList[index],
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
-                  padding: const EdgeInsets.all(12),
-                  selectedColor: Colors.blue,
-                  selected: currentChoiceIndex == index,
-                  onSelected: (value) {
-                    setState(() {
-                      currentChoiceIndex = value ? index : currentChoiceIndex;
-                    });
-                  },
-                );
-              },
-            ),
-          ),
-        ],
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: List.generate(
+          _choicesList.length,
+          (index) {
+            return Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: ChoiceChip(
+                label: Text(
+                  _choicesList[index],
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+                // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                selectedColor: Colors.blue,
+                selected: currentChoiceIndex == index,
+                onSelected: (value) {
+                  setState(() {
+                    currentChoiceIndex = value ? index : currentChoiceIndex;
+                  });
+                },
+              ),
+            );
+          },
+        ),
       ),
     );
   }
