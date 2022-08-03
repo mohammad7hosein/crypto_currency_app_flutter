@@ -1,6 +1,8 @@
+import 'package:cripto_currency_app_flutter/providers/signup_screen_provider.dart';
 import 'package:cripto_currency_app_flutter/ui/components/main_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {
   SignUpScreen({Key? key}) : super(key: key);
@@ -35,6 +37,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<SignupScreenProvider>(context);
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 
@@ -164,6 +167,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
+                            provider.saveLoggedIn();
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(

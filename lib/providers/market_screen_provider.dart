@@ -1,8 +1,8 @@
-import 'package:cripto_currency_app_flutter/network/api.dart';
 import 'package:flutter/material.dart';
-import '../models/crypto_models/all_crypto_model.dart';
-import '../models/crypto_models/crypto_data.dart';
-import '../network/response_model.dart';
+import '../data/data_source/api.dart';
+import '../data/data_source/response_model.dart';
+import '../data/models/crypto_models/all_crypto_model.dart';
+import '../data/models/crypto_models/crypto_data.dart';
 
 class MarketScreenProvider extends ChangeNotifier {
   final Api _api = Api();
@@ -32,5 +32,4 @@ class MarketScreenProvider extends ChangeNotifier {
     cryptoData.data!.cryptoCurrencyList = searchList;
     notifyListeners();
   }
-
 }

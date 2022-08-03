@@ -1,6 +1,7 @@
 import 'package:cripto_currency_app_flutter/constants/my_theme.dart';
 import 'package:cripto_currency_app_flutter/providers/home_screen_provider.dart';
 import 'package:cripto_currency_app_flutter/providers/market_screen_provider.dart';
+import 'package:cripto_currency_app_flutter/providers/signup_screen_provider.dart';
 import 'package:cripto_currency_app_flutter/providers/theme_provider.dart';
 import 'package:cripto_currency_app_flutter/ui/components/main_wrapper.dart';
 import 'package:cripto_currency_app_flutter/ui/screens/sign_up_screen.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,6 +21,7 @@ void main() {
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
         ChangeNotifierProvider(create: (context) => HomeScreenProvider()),
         ChangeNotifierProvider(create: (context) => MarketScreenProvider()),
+        ChangeNotifierProvider(create: (context) => SignupScreenProvider()),
       ],
       child: const MyApp(),
     ),
@@ -33,7 +36,7 @@ class MyApp extends StatelessWidget {
     return Consumer<ThemeProvider>(
       builder: (context, themeProvider, child) {
         return MaterialApp(
-          locale: Locale('en', ''),
+          locale: const Locale('en', ''),
           localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
@@ -50,8 +53,20 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           home: Directionality(
             textDirection: TextDirection.ltr,
-            child: SignUpScreen(),
-            // MainWrapper(),
+            child: FutureBuilder<SharedPreferences>(
+              future: SharedPreferences.getInstance(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  var isLoggedIn =
+                      snapshot.data!.getBool("is_logged_in") ?? false;
+                  return isLoggedIn ? MainWrapper() : SignUpScreen();
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            ),
           ),
         );
       },

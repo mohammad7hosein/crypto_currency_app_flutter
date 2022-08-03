@@ -1,7 +1,7 @@
-import 'package:cripto_currency_app_flutter/models/crypto_models/all_crypto_model.dart';
-import 'package:cripto_currency_app_flutter/network/api.dart';
-import 'package:cripto_currency_app_flutter/network/response_model.dart';
 import 'package:flutter/material.dart';
+import '../data/data_source/api.dart';
+import '../data/data_source/response_model.dart';
+import '../data/models/crypto_models/all_crypto_model.dart';
 
 class HomeScreenProvider extends ChangeNotifier {
   final Api _api = Api();

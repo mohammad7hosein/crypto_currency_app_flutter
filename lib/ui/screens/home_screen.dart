@@ -1,11 +1,11 @@
-import 'package:cripto_currency_app_flutter/models/crypto_models/crypto_data.dart';
-import 'package:cripto_currency_app_flutter/network/response_model.dart';
 import 'package:cripto_currency_app_flutter/providers/home_screen_provider.dart';
 import 'package:cripto_currency_app_flutter/ui/components/crypto_item.dart';
 import 'package:cripto_currency_app_flutter/ui/components/home_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
 import 'package:provider/provider.dart';
+import '../../data/data_source/response_model.dart';
+import '../../data/models/crypto_models/crypto_data.dart';
 import '../components/theme_switcher.dart';
 import '../components/shimmer_effect.dart';
 
@@ -191,4 +191,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-

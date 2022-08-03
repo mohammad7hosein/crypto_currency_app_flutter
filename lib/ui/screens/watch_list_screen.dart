@@ -7,7 +7,7 @@ class WatchListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("WatchList Page"),
+        child: Text("WatchList Page", style: Theme.of(context).textTheme.titleLarge,),
       ),
     );
   }

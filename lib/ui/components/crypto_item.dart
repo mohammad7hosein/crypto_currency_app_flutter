@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../constants/my_url.dart';
-import '../../models/crypto_models/crypto_data.dart';
+import '../../data/models/crypto_models/crypto_data.dart';
 
 class CryptoItem extends StatelessWidget {
   List<CryptoData>? items;
