@@ -3,6 +3,7 @@ import 'package:cripto_currency_app_flutter/providers/home_screen_provider.dart'
 import 'package:cripto_currency_app_flutter/providers/market_screen_provider.dart';
 import 'package:cripto_currency_app_flutter/providers/theme_provider.dart';
 import 'package:cripto_currency_app_flutter/ui/components/main_wrapper.dart';
+import 'package:cripto_currency_app_flutter/ui/screens/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
     return Consumer<ThemeProvider>(
       builder: (context, themeProvider, child) {
         return MaterialApp(
-          locale: Locale('fa', ''),
+          locale: Locale('en', ''),
           localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
@@ -49,7 +50,8 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           home: Directionality(
             textDirection: TextDirection.ltr,
-            child: MainWrapper(),
+            child: SignUpScreen(),
+            // MainWrapper(),
           ),
         );
       },

@@ -1,6 +1,7 @@
 import 'package:cripto_currency_app_flutter/network/api.dart';
 import 'package:flutter/material.dart';
 import '../models/crypto_models/all_crypto_model.dart';
+import '../models/crypto_models/crypto_data.dart';
 import '../network/response_model.dart';
 
 class MarketScreenProvider extends ChangeNotifier {
@@ -26,4 +27,10 @@ class MarketScreenProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  configSearch(List<CryptoData>? searchList) async {
+    cryptoData.data!.cryptoCurrencyList = searchList;
+    notifyListeners();
+  }
+
 }

@@ -2,12 +2,12 @@ import 'package:cripto_currency_app_flutter/models/crypto_models/crypto_data.dar
 import 'package:cripto_currency_app_flutter/network/response_model.dart';
 import 'package:cripto_currency_app_flutter/providers/home_screen_provider.dart';
 import 'package:cripto_currency_app_flutter/ui/components/crypto_item.dart';
-import 'package:cripto_currency_app_flutter/ui/screens/home/components/home_page_view.dart';
+import 'package:cripto_currency_app_flutter/ui/components/home_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
 import 'package:provider/provider.dart';
-import '../../components/theme_switcher.dart';
-import '../../components/shimmer_effect.dart';
+import '../components/theme_switcher.dart';
+import '../components/shimmer_effect.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);

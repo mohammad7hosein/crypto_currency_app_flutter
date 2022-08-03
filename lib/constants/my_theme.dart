@@ -16,7 +16,7 @@ InputDecorationTheme inputDecorationTheme() {
     prefixIconColor: greyColor,
     // contentPadding: const EdgeInsets.symmetric(horizontal: 42, vertical: 20),
     enabledBorder: outlineInputBorder,
-    focusedBorder: outlineInputBorder,
+    // focusedBorder: outlineInputBorder,
     border: outlineInputBorder,
   );
 }
