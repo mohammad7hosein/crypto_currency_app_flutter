@@ -3,8 +3,8 @@ import 'package:cripto_currency_app_flutter/network/api.dart';
 import 'package:cripto_currency_app_flutter/network/response_model.dart';
 import 'package:flutter/material.dart';
 
-class CryptoDataProvider extends ChangeNotifier {
-  Api api = Api();
+class HomeScreenProvider extends ChangeNotifier {
+  final Api _api = Api();
 
   late AllCryptoModel cryptoData;
   late ResponseModel state;
@@ -13,12 +13,12 @@ class CryptoDataProvider extends ChangeNotifier {
   getTopMarketCapsData() async {
     state = ResponseModel.loading();
     try {
-      response = await api.getTopMarketCapsData();
+      response = await _api.getTopMarketCapsData();
       if (response.statusCode == 200) {
         cryptoData = AllCryptoModel.fromJson(response.data);
         state = ResponseModel.completed(cryptoData);
       } else {
-        state = ResponseModel.error("something wrong...");
+        state = ResponseModel.error("something wrong please try again...");
       }
       notifyListeners();
     } catch (e) {
@@ -30,12 +30,12 @@ class CryptoDataProvider extends ChangeNotifier {
   getTopGainersData() async {
     state = ResponseModel.loading();
     try {
-      response = await api.getTopGainersData();
+      response = await _api.getTopGainersData();
       if (response.statusCode == 200) {
         cryptoData = AllCryptoModel.fromJson(response.data);
         state = ResponseModel.completed(cryptoData);
       } else {
-        state = ResponseModel.error("something wrong...");
+        state = ResponseModel.error("something wrong please try again...");
       }
       notifyListeners();
     } catch (e) {
@@ -47,12 +47,12 @@ class CryptoDataProvider extends ChangeNotifier {
   getTopLosersData() async {
     state = ResponseModel.loading();
     try {
-      response = await api.getTopLosersData();
+      response = await _api.getTopLosersData();
       if (response.statusCode == 200) {
         cryptoData = AllCryptoModel.fromJson(response.data);
         state = ResponseModel.completed(cryptoData);
       } else {
-        state = ResponseModel.error("something wrong...");
+        state = ResponseModel.error("something wrong please try again...");
       }
       notifyListeners();
     } catch (e) {
@@ -60,6 +60,4 @@ class CryptoDataProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-
-
 }

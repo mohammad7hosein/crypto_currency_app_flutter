@@ -2,8 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+const greyColor = Color(0xFF979797);
+
+InputDecorationTheme inputDecorationTheme() {
+  OutlineInputBorder outlineInputBorder = OutlineInputBorder(
+    borderRadius: BorderRadius.circular(20),
+    borderSide: const BorderSide(color: greyColor),
+    gapPadding: 10,
+  );
+  return InputDecorationTheme(
+    floatingLabelBehavior: FloatingLabelBehavior.always,
+    hintStyle: GoogleFonts.ubuntu(color: greyColor, fontSize: 15),
+    prefixIconColor: greyColor,
+    // contentPadding: const EdgeInsets.symmetric(horizontal: 42, vertical: 20),
+    enabledBorder: outlineInputBorder,
+    focusedBorder: outlineInputBorder,
+    border: outlineInputBorder,
+  );
+}
+
 class MyTheme {
   static final darkTheme = ThemeData(
+    inputDecorationTheme: inputDecorationTheme(),
     appBarTheme: const AppBarTheme(
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarIconBrightness: Brightness.light,
@@ -36,6 +56,7 @@ class MyTheme {
   );
 
   static final lightTheme = ThemeData(
+    inputDecorationTheme: inputDecorationTheme(),
     appBarTheme: const AppBarTheme(
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarIconBrightness: Brightness.dark,
@@ -57,7 +78,7 @@ class MyTheme {
     primaryColorLight: Colors.white,
     scaffoldBackgroundColor: Colors.white,
     primaryColor: Colors.blueAccent,
-    secondaryHeaderColor: Colors.black,
+    secondaryHeaderColor: Colors.black12,
     iconTheme: const IconThemeData(color: Colors.white, opacity: 0.8),
     // textSelectionTheme: TextSelectionThemeData(
     //   cursorColor: Colors.red,

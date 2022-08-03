@@ -1,15 +1,13 @@
 import 'package:cripto_currency_app_flutter/models/crypto_models/crypto_data.dart';
 import 'package:cripto_currency_app_flutter/network/response_model.dart';
-import 'package:cripto_currency_app_flutter/providers/crypto_data_provider.dart';
-import 'package:cripto_currency_app_flutter/ui/screens/home/components/crypto_item.dart';
+import 'package:cripto_currency_app_flutter/providers/home_screen_provider.dart';
+import 'package:cripto_currency_app_flutter/ui/components/crypto_item.dart';
 import 'package:cripto_currency_app_flutter/ui/screens/home/components/home_page_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:marquee/marquee.dart';
 import 'package:provider/provider.dart';
-
 import '../../components/theme_switcher.dart';
-import 'components/shimmer_effect.dart';
+import '../../components/shimmer_effect.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -34,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
 
     final cryptoProvider =
-        Provider.of<CryptoDataProvider>(context, listen: false);
+        Provider.of<HomeScreenProvider>(context, listen: false);
     cryptoProvider.getTopMarketCapsData();
   }
 
@@ -72,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
   SizedBox buildCryptoList() {
     return SizedBox(
       height: 500,
-      child: Consumer<CryptoDataProvider>(
+      child: Consumer<HomeScreenProvider>(
         builder: (context, cryptoDataProvider, child) {
           switch (cryptoDataProvider.state.status) {
             case StateData.LOADING:
@@ -92,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
             case StateData.ERROR:
               return Text(cryptoDataProvider.state.message);
             default:
-              return const Text("Error");
+              return const ShimmerEffect();
           }
         },
       ),
@@ -100,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   SingleChildScrollView buildChoiceChips(BuildContext context) {
-    final cryptoProvider = Provider.of<CryptoDataProvider>(context);
+    final cryptoProvider = Provider.of<HomeScreenProvider>(context);
 
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -193,3 +191,4 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
