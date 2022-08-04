@@ -7,7 +7,6 @@ import 'package:cripto_currency_app_flutter/ui/components/main_wrapper.dart';
 import 'package:cripto_currency_app_flutter/ui/screens/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -38,7 +37,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           locale: const Locale('en', ''),
           localizationsDelegates: const [
-            AppLocalizations.delegate,
+            // AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,

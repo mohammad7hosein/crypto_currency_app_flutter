@@ -1,3 +1,3 @@
 enum MyPage {
-  Home, Market, Profile, WatchList
+  Home, Market, Wallet, Profile
 }
