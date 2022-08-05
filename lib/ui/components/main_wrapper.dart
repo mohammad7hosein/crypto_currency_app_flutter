@@ -2,7 +2,7 @@ import 'package:cripto_currency_app_flutter/constants/my_page.dart';
 import 'package:cripto_currency_app_flutter/ui/screens/home_screen.dart';
 import 'package:cripto_currency_app_flutter/ui/screens/market_screen.dart';
 import 'package:cripto_currency_app_flutter/ui/screens/profile_screen.dart';
-import 'package:cripto_currency_app_flutter/ui/screens/watch_list_screen.dart';
+import 'package:cripto_currency_app_flutter/ui/screens/wallet_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

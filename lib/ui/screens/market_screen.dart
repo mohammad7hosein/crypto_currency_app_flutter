@@ -1,9 +1,11 @@
 import 'dart:async';
+
 import 'package:cripto_currency_app_flutter/providers/market_screen_provider.dart';
 import 'package:cripto_currency_app_flutter/ui/components/crypto_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../../data/data_source/response_model.dart';
 import '../../data/models/crypto_models/crypto_data.dart';
 import '../components/shimmer_effect.dart';
@@ -51,7 +53,6 @@ class _MarketScreenState extends State<MarketScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        centerTitle: true,
         title: const Text("Market"),
         titleTextStyle: Theme.of(context).textTheme.titleLarge,
       ),
@@ -69,32 +70,61 @@ class _MarketScreenState extends State<MarketScreen> {
                     return Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          child: TextField(
-                            style: Theme.of(context).textTheme.bodySmall,
-                            onChanged: (value) {
-                              List<CryptoData>? searchList = [];
-                              for (CryptoData crypto in items!) {
-                                if (crypto.name!
-                                        .toLowerCase()
-                                        .contains(value) ||
-                                    crypto.symbol!
-                                        .toLowerCase()
-                                        .contains(value)) {
-                                  searchList.add(crypto);
-                                }
-                              }
-                              cryptoDataProvider.configSearch(searchList);
-                            },
-                            controller: searchController,
-                            decoration: const InputDecoration(
-                              hintText: "Search here",
-                              prefixIcon: Icon(
-                                CupertinoIcons.search,
-                              ),
-                              // hintText: AppLocalizations.of(context)!.search,
+                          padding: const EdgeInsets.only(
+                              left: 25, right: 25, bottom: 10, top: 20),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(30),
                             ),
+                            child: TextField(
+                              style: Theme.of(context).textTheme.bodySmall,
+                              onChanged: (value) {
+                                List<CryptoData>? searchList = [];
+                                for (CryptoData crypto in items!) {
+                                  if (crypto.name!
+                                          .toLowerCase()
+                                          .contains(value) ||
+                                      crypto.symbol!
+                                          .toLowerCase()
+                                          .contains(value)) {
+                                    searchList.add(crypto);
+                                  }
+                                }
+                                cryptoDataProvider.configSearch(searchList);
+                              },
+                              cursorColor: Colors.black,
+                              cursorRadius: const Radius.circular(10),
+                              decoration: const InputDecoration(
+                                hintText: "Search",
+                                suffixIcon: Icon(Icons.filter_list_rounded),
+                                prefixIcon: Icon(CupertinoIcons.search),
+                                // hintText: AppLocalizations.of(context)!.search,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              FilterBox(
+                                icon: Icons.star_border_rounded,
+                                text: "WatchList",
+                                color: Colors.blue,
+                              ),
+                              FilterBox(
+                                icon: Icons.arrow_upward_rounded,
+                                text: "TopGainer",
+                                color: Colors.green,
+                              ),
+                              FilterBox(
+                                icon: Icons.arrow_downward_rounded,
+                                text: "TopLooser",
+                                color: Colors.red,
+                              ),
+                            ],
                           ),
                         ),
                         Expanded(
@@ -119,6 +149,57 @@ class _MarketScreenState extends State<MarketScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class FilterBox extends StatelessWidget {
+  IconData icon;
+  String text;
+  Color color;
+
+  FilterBox({
+    required this.icon,
+    required this.text,
+    required this.color,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {},
+      borderRadius: BorderRadius.circular(20),
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 20),
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: Colors.white60,
+        ),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: color.withOpacity(0.2),
+              ),
+              child: Icon(
+                icon,
+                color: color,
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Text(
+              text,
+              style: const TextStyle(fontSize: 13),
+            ),
+          ],
+        ),
       ),
     );
   }

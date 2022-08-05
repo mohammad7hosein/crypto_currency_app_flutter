@@ -12,25 +12,21 @@ const light = Color(0xffe2e3ea);
 const dark = Color(0xff231f2d);
 
 InputDecorationTheme inputDecorationTheme() {
-  OutlineInputBorder outlineInputBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.circular(20),
-    borderSide: const BorderSide(color: greyColor),
-    gapPadding: 10,
+  OutlineInputBorder outlineInputBorder = const OutlineInputBorder(
+    borderSide: BorderSide(color: Colors.transparent),
   );
   return InputDecorationTheme(
-    floatingLabelBehavior: FloatingLabelBehavior.always,
-    hintStyle: GoogleFonts.ubuntu(color: greyColor, fontSize: 15),
-    prefixIconColor: greyColor,
-    // contentPadding: const EdgeInsets.symmetric(horizontal: 42, vertical: 20),
+    hintStyle: GoogleFonts.ubuntu(color: Colors.black38, fontSize: 15),
+    prefixIconColor: Colors.black38,
+    suffixIconColor: dark,
     enabledBorder: outlineInputBorder,
-    // focusedBorder: outlineInputBorder,
+    focusedBorder: outlineInputBorder,
     border: outlineInputBorder,
   );
 }
 
 class MyTheme {
   static final darkTheme = ThemeData(
-    inputDecorationTheme: inputDecorationTheme(),
     appBarTheme: const AppBarTheme(
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarIconBrightness: Brightness.light,
@@ -38,9 +34,9 @@ class MyTheme {
       ),
       elevation: 0,
       backgroundColor: Colors.black12,
-      centerTitle: true,
       iconTheme: IconThemeData(color: Colors.white, opacity: 0.8),
     ),
+    inputDecorationTheme: inputDecorationTheme(),
     textTheme: TextTheme(
       titleLarge: GoogleFonts.ubuntu(
           color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
@@ -57,7 +53,6 @@ class MyTheme {
   );
 
   static final lightTheme = ThemeData(
-    inputDecorationTheme: inputDecorationTheme(),
     appBarTheme: const AppBarTheme(
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarIconBrightness: Brightness.dark,
@@ -65,12 +60,12 @@ class MyTheme {
       ),
       elevation: 0,
       backgroundColor: Colors.transparent,
-      centerTitle: true,
       iconTheme: IconThemeData(color: Colors.black, opacity: 0.8),
     ),
+    inputDecorationTheme: inputDecorationTheme(),
     textTheme: TextTheme(
       titleLarge: GoogleFonts.ubuntu(
-          color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
+          color: Colors.black, fontSize: 26, fontWeight: FontWeight.bold),
       bodySmall: GoogleFonts.ubuntu(color: Colors.black, fontSize: 15),
       labelSmall: GoogleFonts.ubuntu(color: Colors.black38, fontSize: 13),
       titleSmall: GoogleFonts.ubuntu(color: Colors.black, fontSize: 12),
