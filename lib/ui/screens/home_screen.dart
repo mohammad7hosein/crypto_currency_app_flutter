@@ -1,16 +1,18 @@
+import 'package:cripto_currency_app_flutter/constants/my_theme.dart';
 import 'package:cripto_currency_app_flutter/providers/home_screen_provider.dart';
 import 'package:cripto_currency_app_flutter/ui/components/crypto_item.dart';
 import 'package:cripto_currency_app_flutter/ui/components/home_page_view.dart';
 import 'package:flutter/material.dart';
-import 'package:marquee/marquee.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
 import '../../data/data_source/response_model.dart';
 import '../../data/models/crypto_models/crypto_data.dart';
-import '../components/theme_switcher.dart';
 import '../components/shimmer_effect.dart';
+import '../components/theme_switcher.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -18,14 +20,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageController = PageController(initialPage: 0);
-
-  int currentChoiceIndex = 0;
-
-  final List<String> _choicesList = [
-    "Top MarketCaps",
-    "Top Gainers",
-    "Top Losers"
-  ];
 
   @override
   void initState() {
@@ -38,155 +32,98 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return Scaffold(
-      drawer: const Drawer(),
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text("Crypto"),
-        titleTextStyle: Theme.of(context).textTheme.titleLarge,
-        actions: const [
-          ThemeSwitcher(),
-        ],
-      ),
-      body: SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            children: [
-              HomePageView(pageController: _pageController),
-              buildMovingText(context),
-              buildBuySellButtons(),
-              buildChoiceChips(context),
-              buildCryptoList(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  SizedBox buildCryptoList() {
-    return SizedBox(
-      height: 500,
-      child: Consumer<HomeScreenProvider>(
-        builder: (context, cryptoDataProvider, child) {
-          switch (cryptoDataProvider.state.status) {
-            case StateData.LOADING:
-              return const ShimmerEffect();
-            case StateData.COMPLETED:
-              List<CryptoData>? items =
-                  cryptoDataProvider.cryptoData.data!.cryptoCurrencyList;
-              return ListView.separated(
-                itemBuilder: (context, index) {
-                  return CryptoItem(items: items, index: index);
-                },
-                separatorBuilder: (context, index) {
-                  return const Divider();
-                },
-                itemCount: items!.length,
-              );
-            case StateData.ERROR:
-              return Text(cryptoDataProvider.state.message);
-            default:
-              return const ShimmerEffect();
-          }
-        },
-      ),
-    );
-  }
-
-  SingleChildScrollView buildChoiceChips(BuildContext context) {
-    final cryptoProvider = Provider.of<HomeScreenProvider>(context);
-
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: List.generate(
-          _choicesList.length,
-          (index) {
-            return Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: ChoiceChip(
-                label: Text(
-                  _choicesList[index],
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-                // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                selectedColor: Colors.blue,
-                selected: currentChoiceIndex == index,
-                onSelected: (value) {
-                  setState(() {
-                    currentChoiceIndex = value ? index : currentChoiceIndex;
-                    switch (index) {
-                      case 0:
-                        cryptoProvider.getTopMarketCapsData();
-                        break;
-                      case 1:
-                        cryptoProvider.getTopGainersData();
-                        break;
-                      case 2:
-                        cryptoProvider.getTopLosersData();
-                        break;
-                    }
-                  });
-                },
+      body: SafeArea(
+        child: Column(
+          children: [
+            buildAppBar(context),
+            HomePageView(pageController: _pageController),
+            Expanded(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: size.height * 0.25,
+                  ),
+                  buildCryptoList(),
+                ],
               ),
-            );
-          },
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Padding buildBuySellButtons() {
+  Padding buildAppBar(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.only(top: 20, left: 20, right: 5),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Colors.green[700],
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16)),
-                padding: const EdgeInsets.all(16),
-              ),
-              onPressed: () {},
-              child: const Text("buy"),
-            ),
+          Text(
+            "Home",
+            style: Theme.of(context).textTheme.titleLarge,
           ),
-          const SizedBox(
-            width: 10,
-          ),
-          Expanded(
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Colors.red[700],
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16)),
-                padding: const EdgeInsets.all(16),
-              ),
-              onPressed: () {},
-              child: const Text("sell"),
-            ),
-          ),
+          const ThemeSwitcher(),
         ],
       ),
     );
   }
 
-  SizedBox buildMovingText(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: 30,
-      child: Marquee(
-        text: "**  this is place for news in application  ",
-        style: Theme.of(context).textTheme.bodySmall,
+  Expanded buildCryptoList() {
+    return Expanded(
+      child: Container(
+        decoration: BoxDecoration(
+          color: veryLight,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(40),
+            topRight: Radius.circular(40),
+          ),
+        ),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: Row(
+                children: [
+                  Text(
+                    "Trending",
+                    style: GoogleFonts.ubuntu(
+                        fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Consumer<HomeScreenProvider>(
+                builder: (context, cryptoDataProvider, child) {
+                  switch (cryptoDataProvider.state.status) {
+                    case StateData.LOADING:
+                      return const ShimmerEffect();
+                    case StateData.COMPLETED:
+                      List<CryptoData>? items = cryptoDataProvider
+                          .cryptoData.data!.cryptoCurrencyList;
+                      return ListView.separated(
+                        itemBuilder: (context, index) {
+                          return CryptoItem(items: items, index: index);
+                        },
+                        separatorBuilder: (context, index) {
+                          return const Divider();
+                        },
+                        itemCount: items!.length,
+                      );
+                    case StateData.ERROR:
+                      return Text(cryptoDataProvider.state.message);
+                    default:
+                      return const ShimmerEffect();
+                  }
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

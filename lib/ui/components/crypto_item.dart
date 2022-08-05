@@ -76,7 +76,8 @@ class CryptoItem extends StatelessWidget {
                 child: SvgPicture.network("${MyUrl.coinChartUrl}/$tokenId.svg"),
               ),
             ),
-            Expanded(
+            Flexible(
+              fit: FlexFit.tight,
               child: Padding(
                 padding: const EdgeInsets.only(right: 15),
                 child: Column(
@@ -92,7 +93,9 @@ class CryptoItem extends StatelessWidget {
                       children: [
                         percentIcon,
                         Text(
-                          "$percentChange%",
+                          percentChange.length > 6
+                              ? "${percentChange.substring(0, 6)}%"
+                              : "$percentChange%",
                           style: GoogleFonts.ubuntu(
                               color: percentColor, fontSize: 13),
                         ),

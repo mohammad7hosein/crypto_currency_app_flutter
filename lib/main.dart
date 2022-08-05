@@ -1,5 +1,6 @@
 import 'package:cripto_currency_app_flutter/constants/my_theme.dart';
 import 'package:cripto_currency_app_flutter/providers/home_screen_provider.dart';
+import 'package:cripto_currency_app_flutter/providers/main_provider.dart';
 import 'package:cripto_currency_app_flutter/providers/market_screen_provider.dart';
 import 'package:cripto_currency_app_flutter/providers/signup_screen_provider.dart';
 import 'package:cripto_currency_app_flutter/providers/theme_provider.dart';
@@ -12,12 +13,19 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark, // status bar color
+    ),
+  );
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
+        ChangeNotifierProvider(create: (context) => MainProvider()),
         ChangeNotifierProvider(create: (context) => HomeScreenProvider()),
         ChangeNotifierProvider(create: (context) => MarketScreenProvider()),
         ChangeNotifierProvider(create: (context) => SignupScreenProvider()),
@@ -58,7 +66,7 @@ class MyApp extends StatelessWidget {
                 if (snapshot.hasData) {
                   var isLoggedIn =
                       snapshot.data!.getBool("is_logged_in") ?? false;
-                  return isLoggedIn ? MainWrapper() : SignUpScreen();
+                  return isLoggedIn ? const MainWrapper() : SignUpScreen();
                 } else {
                   return const Center(
                     child: CircularProgressIndicator(),

@@ -7,7 +7,7 @@ class WalletScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("WatchList Page", style: Theme.of(context).textTheme.titleLarge,),
+        child: Text("Wallet Page", style: Theme.of(context).textTheme.titleLarge,),
       ),
     );
   }

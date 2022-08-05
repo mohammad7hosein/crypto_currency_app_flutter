@@ -10,6 +10,7 @@ const purpleLight = Color(0xff9589dc);
 const pinkDark = Color(0xffc49eb5);
 const light = Color(0xffe2e3ea);
 const dark = Color(0xff231f2d);
+final veryLight = Colors.white.withOpacity(0.5);
 
 InputDecorationTheme inputDecorationTheme() {
   OutlineInputBorder outlineInputBorder = const OutlineInputBorder(
@@ -65,7 +66,7 @@ class MyTheme {
     inputDecorationTheme: inputDecorationTheme(),
     textTheme: TextTheme(
       titleLarge: GoogleFonts.ubuntu(
-          color: Colors.black, fontSize: 26, fontWeight: FontWeight.bold),
+          color: Colors.black, fontSize: 28, fontWeight: FontWeight.bold),
       bodySmall: GoogleFonts.ubuntu(color: Colors.black, fontSize: 15),
       labelSmall: GoogleFonts.ubuntu(color: Colors.black38, fontSize: 13),
       titleSmall: GoogleFonts.ubuntu(color: Colors.black, fontSize: 12),

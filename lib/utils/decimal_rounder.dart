@@ -66,17 +66,17 @@ class DecimalRounder {
 
     if (percent24 < 0) {
       percentIcon = const Icon(
-        Icons.arrow_drop_down,
+        Icons.arrow_drop_down_rounded,
         color: Colors.red,
       );
     } else if (percent24 > 0) {
       percentIcon = const Icon(
-        Icons.arrow_drop_up,
+        Icons.arrow_drop_up_rounded,
         color: Colors.green,
       );
     } else {
       percentIcon = const Icon(
-        Icons.minimize,
+        Icons.minimize_rounded,
         color: Colors.grey,
       );
     }

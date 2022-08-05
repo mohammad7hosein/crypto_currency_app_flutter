@@ -27,37 +27,4 @@ class HomeScreenProvider extends ChangeNotifier {
     }
   }
 
-  getTopGainersData() async {
-    state = ResponseModel.loading();
-    try {
-      response = await _api.getTopGainersData();
-      if (response.statusCode == 200) {
-        cryptoData = AllCryptoModel.fromJson(response.data);
-        state = ResponseModel.completed(cryptoData);
-      } else {
-        state = ResponseModel.error("something wrong please try again...");
-      }
-      notifyListeners();
-    } catch (e) {
-      state = ResponseModel.error("please check your connection...");
-      notifyListeners();
-    }
-  }
-
-  getTopLosersData() async {
-    state = ResponseModel.loading();
-    try {
-      response = await _api.getTopLosersData();
-      if (response.statusCode == 200) {
-        cryptoData = AllCryptoModel.fromJson(response.data);
-        state = ResponseModel.completed(cryptoData);
-      } else {
-        state = ResponseModel.error("something wrong please try again...");
-      }
-      notifyListeners();
-    } catch (e) {
-      state = ResponseModel.error("please check your connection...");
-      notifyListeners();
-    }
-  }
 }

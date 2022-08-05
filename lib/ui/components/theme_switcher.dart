@@ -16,9 +16,15 @@ class ThemeSwitcher extends StatelessWidget {
         onPressed: () {
           themeProvider.toggleTheme();
         },
-        icon: Icon(themeProvider.isDarkMode
-            ? CupertinoIcons.moon_fill
-            : CupertinoIcons.sun_max_fill),
+        icon: themeProvider.isDarkMode
+            ? const Icon(
+                CupertinoIcons.moon_fill,
+                color: Colors.white,
+              )
+            : const Icon(
+                CupertinoIcons.sun_max_fill,
+                color: Colors.black,
+              ),
       ),
     );
   }
