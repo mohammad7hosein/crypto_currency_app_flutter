@@ -26,35 +26,37 @@ class FilterBox extends StatelessWidget {
       onTap: onPressed,
       borderRadius: BorderRadius.circular(20),
       child: Container(
-        width: width / 3,
         height: 120,
         margin: const EdgeInsets.only(bottom: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: isSelected ? Colors.white : veryLight,
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: color.withOpacity(0.2),
+        child: AspectRatio(
+          aspectRatio: 0.8,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: color.withOpacity(0.2),
+                ),
+                child: Icon(
+                  icon,
+                  color: color,
+                ),
               ),
-              child: Icon(
-                icon,
-                color: color,
+              const SizedBox(
+                height: 20,
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Text(
-              text,
-              style: const TextStyle(fontSize: 13),
-            ),
-          ],
+              Text(
+                text,
+                style: const TextStyle(fontSize: 13),
+              ),
+            ],
+          ),
         ),
       ),
     );
