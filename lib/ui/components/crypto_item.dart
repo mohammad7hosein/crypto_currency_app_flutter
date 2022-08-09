@@ -42,8 +42,7 @@ class CryptoItem extends StatelessWidget {
                 width: 32,
                 height: 32,
                 imageUrl: "${MyUrl.coinSymbolUrl}/$tokenId.png",
-                placeholder: (context, url) =>
-                    const CircularProgressIndicator(),
+                // placeholder: (context, url) => const CircularProgressIndicator(),
                 errorWidget: (context, url, error) =>
                     const Icon(Icons.error_outline_rounded),
               ),

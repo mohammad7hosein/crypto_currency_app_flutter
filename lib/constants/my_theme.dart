@@ -9,6 +9,7 @@ const purple = Color(0xff9375ce);
 const purpleLight = Color(0xff9589dc);
 const pinkDark = Color(0xffc49eb5);
 const light = Color(0xffe2e3ea);
+const testLight = Color(0x80ffffff);
 const dark = Color(0xff231f2d);
 final veryLight = Colors.white.withOpacity(0.5);
 
@@ -23,6 +24,7 @@ InputDecorationTheme inputDecorationTheme() {
     enabledBorder: outlineInputBorder,
     focusedBorder: outlineInputBorder,
     border: outlineInputBorder,
+    errorBorder: outlineInputBorder
   );
 }
 

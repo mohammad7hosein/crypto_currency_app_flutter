@@ -5,7 +5,7 @@ import 'package:cripto_currency_app_flutter/providers/market_screen_provider.dar
 import 'package:cripto_currency_app_flutter/providers/signup_screen_provider.dart';
 import 'package:cripto_currency_app_flutter/providers/theme_provider.dart';
 import 'package:cripto_currency_app_flutter/ui/components/main_wrapper.dart';
-import 'package:cripto_currency_app_flutter/ui/screens/sign_up_screen.dart';
+import 'package:cripto_currency_app_flutter/ui/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
                 if (snapshot.hasData) {
                   var isLoggedIn =
                       snapshot.data!.getBool("is_logged_in") ?? false;
-                  return isLoggedIn ? const MainWrapper() : SignUpScreen();
+                  return isLoggedIn ? const MainWrapper() : LoginScreen();
                 } else {
                   return const Center(
                     child: CircularProgressIndicator(),

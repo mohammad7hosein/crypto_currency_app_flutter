@@ -11,6 +11,15 @@ class MarketScreenProvider extends ChangeNotifier {
   late ResponseModel state;
   var response;
 
+  int _filterIndex = 0;
+
+  get filterIndex => _filterIndex;
+
+  void setFilterIndex(int index) {
+    _filterIndex = index;
+    notifyListeners();
+  }
+
   getAllCryptoData() async {
     state = ResponseModel.loading();
     try {

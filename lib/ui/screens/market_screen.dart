@@ -79,38 +79,49 @@ class _MarketScreenState extends State<MarketScreen> {
     );
   }
 
-  Padding buildFilterBoxes(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          FilterBox(
-            onPressed: () {
-              context.read<MarketScreenProvider>().getAllCryptoData();
-            },
-            icon: Icons.star_border_rounded,
-            text: "All Coins",
-            color: Colors.blue,
+  Consumer buildFilterBoxes(BuildContext context) {
+    int currentIndex = 0;
+    return Consumer<MarketScreenProvider>(
+      builder: (context, provider, child) {
+        return Padding(
+          padding: const EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              FilterBox(
+                onPressed: () {
+                  provider.setFilterIndex(0);
+                  provider.getAllCryptoData();
+                },
+                icon: Icons.star_border_rounded,
+                text: "All Coins",
+                color: Colors.blue,
+                isSelected: provider.filterIndex == 0,
+              ),
+              FilterBox(
+                onPressed: () {
+                  provider.setFilterIndex(1);
+                  provider.getTopGainersData();
+                },
+                icon: Icons.arrow_upward_rounded,
+                text: "Top Gainers",
+                color: Colors.green,
+                isSelected: provider.filterIndex == 1,
+              ),
+              FilterBox(
+                onPressed: () {
+                  provider.setFilterIndex(2);
+                  provider.getTopLosersData();
+                },
+                icon: Icons.arrow_downward_rounded,
+                text: "Top Loosers",
+                color: Colors.red,
+                isSelected: provider.filterIndex == 2,
+              ),
+            ],
           ),
-          FilterBox(
-            onPressed: () {
-              context.read<MarketScreenProvider>().getTopGainersData();
-            },
-            icon: Icons.arrow_upward_rounded,
-            text: "Top Gainers",
-            color: Colors.green,
-          ),
-          FilterBox(
-            onPressed: () {
-              context.read<MarketScreenProvider>().getTopLosersData();
-            },
-            icon: Icons.arrow_downward_rounded,
-            text: "Top Loosers",
-            color: Colors.red,
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 

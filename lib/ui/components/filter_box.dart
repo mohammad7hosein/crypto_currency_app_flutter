@@ -7,12 +7,14 @@ class FilterBox extends StatelessWidget {
   IconData icon;
   String text;
   Color color;
+  bool isSelected;
 
   FilterBox({
     required this.onPressed,
     required this.icon,
     required this.text,
     required this.color,
+    required this.isSelected,
     Key? key,
   }) : super(key: key);
 
@@ -29,7 +31,7 @@ class FilterBox extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: veryLight,
+          color: isSelected ? Colors.white : veryLight,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
