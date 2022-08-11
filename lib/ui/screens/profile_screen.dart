@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants/my_theme.dart';
-import '../components/MyDivider.dart';
-import '../components/ProfileMenuItem.dart';
+import '../components/my_divider.dart';
+import '../components/profile_menu_item.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);

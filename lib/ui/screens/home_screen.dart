@@ -1,6 +1,6 @@
 import 'package:cripto_currency_app_flutter/constants/my_theme.dart';
 import 'package:cripto_currency_app_flutter/providers/home_screen_provider.dart';
-import 'package:cripto_currency_app_flutter/ui/components/MyDivider.dart';
+import 'package:cripto_currency_app_flutter/ui/components/my_divider.dart';
 import 'package:cripto_currency_app_flutter/ui/components/crypto_item.dart';
 import 'package:cripto_currency_app_flutter/ui/components/home_page_view.dart';
 import 'package:flutter/material.dart';

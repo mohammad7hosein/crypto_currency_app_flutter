@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 
 import '../../data/data_source/response_model.dart';
 import '../../data/models/crypto_models/crypto_data.dart';
-import '../components/MyDivider.dart';
 import '../components/filter_box.dart';
+import '../components/my_divider.dart';
 import '../components/shimmer_effect.dart';
 
 class MarketScreen extends StatefulWidget {
@@ -58,7 +58,7 @@ class _MarketScreenState extends State<MarketScreen> {
             case StateData.LOADING:
               return const ShimmerEffect();
             case StateData.COMPLETED:
-              items = cryptoDataProvider.cryptoData.data!.cryptoCurrencyList;
+              items = cryptoDataProvider.foundList;
               return Expanded(
                 child: ListView.separated(
                   itemBuilder: (context, index) {
@@ -81,7 +81,6 @@ class _MarketScreenState extends State<MarketScreen> {
   }
 
   Consumer buildFilterBoxes(BuildContext context) {
-    int currentIndex = 0;
     return Consumer<MarketScreenProvider>(
       builder: (context, provider, child) {
         return Padding(
@@ -137,14 +136,7 @@ class _MarketScreenState extends State<MarketScreen> {
         child: TextField(
           style: Theme.of(context).textTheme.bodySmall,
           onChanged: (value) {
-            List<CryptoData>? searchList = [];
-            for (CryptoData crypto in items!) {
-              if (crypto.name!.toLowerCase().contains(value) ||
-                  crypto.symbol!.toLowerCase().contains(value)) {
-                searchList.add(crypto);
-              }
-            }
-            context.read<MarketScreenProvider>().configSearch(searchList);
+            context.read<MarketScreenProvider>().configSearch(value);
           },
           cursorColor: Colors.black,
           cursorRadius: const Radius.circular(10),
