@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomePageView extends StatefulWidget {
-  PageController pageController;
+  final PageController pageController;
 
-  HomePageView({Key? key, required this.pageController}) : super(key: key);
+  const HomePageView({Key? key, required this.pageController}) : super(key: key);
 
   @override
   State<HomePageView> createState() => _HomePageViewState();

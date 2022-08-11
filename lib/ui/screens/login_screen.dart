@@ -1,5 +1,5 @@
 import 'package:cripto_currency_app_flutter/constants/my_theme.dart';
-import 'package:cripto_currency_app_flutter/providers/signup_screen_provider.dart';
+import 'package:cripto_currency_app_flutter/providers/login_screen_provider.dart';
 import 'package:cripto_currency_app_flutter/ui/components/main_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -38,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<SignupScreenProvider>(context);
+    final provider = Provider.of<LoginScreenProvider>(context);
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 
@@ -202,52 +202,52 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: height * 0.12,
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(10),
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
+                              ),
+                              child: SvgPicture.asset(
+                                "assets/icons/facebook.svg",
+                                width: 24,
+                                height: 24,
+                              ),
                             ),
-                            child: SvgPicture.asset(
-                              "assets/icons/facebook.svg",
-                              width: 24,
-                              height: 24,
+                            const SizedBox(
+                              width: 30,
                             ),
-                          ),
-                          const SizedBox(
-                            width: 30,
-                          ),
-                          Container(
-                            padding: const EdgeInsets.all(10),
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
+                              ),
+                              child: SvgPicture.asset(
+                                "assets/icons/google.svg",
+                                width: 24,
+                                height: 24,
+                              ),
                             ),
-                            child: SvgPicture.asset(
-                              "assets/icons/google.svg",
-                              width: 24,
-                              height: 24,
+                            const SizedBox(
+                              width: 30,
                             ),
-                          ),
-                          const SizedBox(
-                            width: 30,
-                          ),
-                          Container(
-                            padding: const EdgeInsets.all(10),
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
+                              ),
+                              child: SvgPicture.asset(
+                                "assets/icons/apple.svg",
+                                width: 24,
+                                height: 24,
+                              ),
                             ),
-                            child: SvgPicture.asset(
-                              "assets/icons/apple.svg",
-                              width: 24,
-                              height: 24,
-                            ),
-                          ),
-                        ],
-                      )
+                          ],
+                        ),
                     ],
                   ),
                 ),

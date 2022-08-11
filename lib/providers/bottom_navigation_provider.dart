@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../constants/my_page.dart';
 
-class MainProvider extends ChangeNotifier {
+class BottomNavigationProvider extends ChangeNotifier {
   int _currentPage = MyPage.Home.index;
 
   get currentPage => _currentPage;

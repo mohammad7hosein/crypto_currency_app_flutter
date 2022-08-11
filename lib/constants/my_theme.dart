@@ -7,6 +7,7 @@ const greyColor = Color(0xFF979797);
 const purpleDark = Color(0xff7473db);
 const purple = Color(0xff9375ce);
 const purpleLight = Color(0xff9589dc);
+const purpleVeryLight = Color(0xffddd9ff);
 const pinkDark = Color(0xffc49eb5);
 const light = Color(0xffe2e3ea);
 const testLight = Color(0x80ffffff);

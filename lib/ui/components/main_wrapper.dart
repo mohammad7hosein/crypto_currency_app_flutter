@@ -1,5 +1,5 @@
 import 'package:cripto_currency_app_flutter/constants/my_page.dart';
-import 'package:cripto_currency_app_flutter/providers/main_provider.dart';
+import 'package:cripto_currency_app_flutter/providers/bottom_navigation_provider.dart';
 import 'package:cripto_currency_app_flutter/ui/screens/home_screen.dart';
 import 'package:cripto_currency_app_flutter/ui/screens/market_screen.dart';
 import 'package:cripto_currency_app_flutter/ui/screens/profile_screen.dart';
@@ -22,13 +22,13 @@ class MainWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: buildBottomNavBar(context),
-      body: pages[context.watch<MainProvider>().currentPage],
+      body: pages[context.watch<BottomNavigationProvider>().currentPage],
     );
   }
 
   Consumer buildBottomNavBar(BuildContext context) {
     final theme = Theme.of(context);
-    return Consumer<MainProvider>(
+    return Consumer<BottomNavigationProvider>(
       builder: (context, mainProvider, child) {
         return Container(
           decoration: const BoxDecoration(

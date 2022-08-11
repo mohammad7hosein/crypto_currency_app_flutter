@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../../data/data_source/response_model.dart';
 import '../../data/models/crypto_models/crypto_data.dart';
+import '../components/MyDivider.dart';
 import '../components/filter_box.dart';
 import '../components/shimmer_effect.dart';
 
@@ -64,7 +65,7 @@ class _MarketScreenState extends State<MarketScreen> {
                     return CryptoItem(items: items, index: index);
                   },
                   separatorBuilder: (context, index) {
-                    return const Divider();
+                    return MyDivider(color: Colors.grey[350]!, margin: 15);
                   },
                   itemCount: items!.length,
                 ),

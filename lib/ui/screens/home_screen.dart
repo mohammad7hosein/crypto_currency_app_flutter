@@ -1,5 +1,6 @@
 import 'package:cripto_currency_app_flutter/constants/my_theme.dart';
 import 'package:cripto_currency_app_flutter/providers/home_screen_provider.dart';
+import 'package:cripto_currency_app_flutter/ui/components/MyDivider.dart';
 import 'package:cripto_currency_app_flutter/ui/components/crypto_item.dart';
 import 'package:cripto_currency_app_flutter/ui/components/home_page_view.dart';
 import 'package:flutter/material.dart';
@@ -43,9 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               child: Column(
                 children: [
-                  SizedBox(
-                    height: size.height * 0.25,
-                  ),
+                  const SizedBox(height: 20),
                   buildCryptoList(),
                 ],
               ),
@@ -110,7 +109,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           return CryptoItem(items: items, index: index);
                         },
                         separatorBuilder: (context, index) {
-                          return const Divider();
+                          return MyDivider(
+                              color: Colors.grey[300]!, margin: 15);
                         },
                         itemCount: items!.length,
                       );

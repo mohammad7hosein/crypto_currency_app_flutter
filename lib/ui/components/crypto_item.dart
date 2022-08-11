@@ -7,15 +7,14 @@ import '../../constants/my_url.dart';
 import '../../data/models/crypto_models/crypto_data.dart';
 
 class CryptoItem extends StatelessWidget {
-  List<CryptoData>? items;
-  int index;
+  final List<CryptoData>? items;
+  final int index;
 
-  CryptoItem({Key? key, required this.items, required this.index})
+  const CryptoItem({Key? key, required this.items, required this.index})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
     var tokenId = items![index].id;
     var finalPrice =
@@ -31,8 +30,8 @@ class CryptoItem extends StatelessWidget {
 
     return InkWell(
       onTap: () {},
-      child: SizedBox(
-        height: size.height * 0.07,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 10),
         child: Row(
           children: [
             Padding(

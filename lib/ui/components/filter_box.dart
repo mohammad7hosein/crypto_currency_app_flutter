@@ -1,15 +1,14 @@
 import 'package:cripto_currency_app_flutter/constants/my_theme.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FilterBox extends StatelessWidget {
-  GestureTapCallback onPressed;
-  IconData icon;
-  String text;
-  Color color;
-  bool isSelected;
+  final GestureTapCallback onPressed;
+  final IconData icon;
+  final String text;
+  final Color color;
+  final bool isSelected;
 
-  FilterBox({
+  const FilterBox({
     required this.onPressed,
     required this.icon,
     required this.text,
