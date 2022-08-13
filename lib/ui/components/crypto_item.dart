@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cripto_currency_app_flutter/ui/screens/details_screen.dart';
 import 'package:cripto_currency_app_flutter/utils/decimal_rounder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -29,7 +30,14 @@ class CryptoItem extends StatelessWidget {
         items![index].quotes![0].percentChange24h);
 
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => DetailsScreen(item: items![index],),
+          ),
+        );
+      },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: Row(

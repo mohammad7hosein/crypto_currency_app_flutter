@@ -19,12 +19,12 @@ dependencies:
   provider: ^6.0.3
   google_fonts: ^3.0.1
   smooth_page_indicator: ^1.0.0+2
-  marquee: ^2.2.3
   dio: ^4.0.6
   shimmer: ^2.0.0
   cached_network_image: ^3.2.1
   flutter_svg: ^1.1.1+1
   shared_preferences: ^2.0.15
+  toggle_switch: ^2.0.1
 
 dev_dependencies:
   flutter_test:

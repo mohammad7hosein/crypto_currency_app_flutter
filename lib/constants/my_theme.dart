@@ -10,23 +10,22 @@ const purpleLight = Color(0xff9589dc);
 const purpleVeryLight = Color(0xffddd9ff);
 const pinkDark = Color(0xffc49eb5);
 const light = Color(0xffe2e3ea);
-const testLight = Color(0x80ffffff);
 const dark = Color(0xff231f2d);
 final veryLight = Colors.white.withOpacity(0.5);
+final testLight = Colors.white.withOpacity(0.3);
 
 InputDecorationTheme inputDecorationTheme() {
   OutlineInputBorder outlineInputBorder = const OutlineInputBorder(
     borderSide: BorderSide(color: Colors.transparent),
   );
   return InputDecorationTheme(
-    hintStyle: GoogleFonts.ubuntu(color: Colors.black38, fontSize: 15),
-    prefixIconColor: Colors.black38,
-    suffixIconColor: dark,
-    enabledBorder: outlineInputBorder,
-    focusedBorder: outlineInputBorder,
-    border: outlineInputBorder,
-    errorBorder: outlineInputBorder
-  );
+      hintStyle: GoogleFonts.ubuntu(color: Colors.black38, fontSize: 15),
+      prefixIconColor: Colors.black38,
+      suffixIconColor: dark,
+      enabledBorder: outlineInputBorder,
+      focusedBorder: outlineInputBorder,
+      border: outlineInputBorder,
+      errorBorder: outlineInputBorder);
 }
 
 class MyTheme {
@@ -70,9 +69,15 @@ class MyTheme {
     textTheme: TextTheme(
       titleLarge: GoogleFonts.ubuntu(
           color: Colors.black, fontSize: 28, fontWeight: FontWeight.bold),
+      titleMedium:
+          GoogleFonts.ubuntu(fontSize: 26, fontWeight: FontWeight.bold),
       bodySmall: GoogleFonts.ubuntu(color: Colors.black, fontSize: 15),
       labelSmall: GoogleFonts.ubuntu(color: Colors.black38, fontSize: 13),
-      titleSmall: GoogleFonts.ubuntu(color: Colors.black, fontSize: 12),
+      labelMedium: GoogleFonts.ubuntu(
+          fontWeight: FontWeight.w600, fontSize: 14, color: Colors.black38),
+      labelLarge: GoogleFonts.ubuntu(
+          fontWeight: FontWeight.bold, fontSize: 14, color: Colors.black),
+      titleSmall: GoogleFonts.ubuntu(fontSize: 20, fontWeight: FontWeight.bold),
     ),
     unselectedWidgetColor: Colors.white54,
     disabledColor: Colors.black26,

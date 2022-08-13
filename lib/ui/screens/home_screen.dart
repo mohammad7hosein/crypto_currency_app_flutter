@@ -84,13 +84,12 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: const EdgeInsets.all(20),
               child: Row(
                 children: [
                   Text(
                     "Trending",
-                    style: GoogleFonts.ubuntu(
-                        fontSize: 20, fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.titleSmall,
                   ),
                 ],
               ),
