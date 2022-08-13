@@ -21,8 +21,15 @@ class MainWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: buildBottomNavBar(context),
-      body: pages[context.watch<BottomNavigationProvider>().currentPage],
+      body: Stack(
+        children: [
+          pages[context.watch<BottomNavigationProvider>().currentPage],
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: buildBottomNavBar(context),
+          ),
+        ],
+      ),
     );
   }
 
@@ -32,6 +39,13 @@ class MainWrapper extends StatelessWidget {
       builder: (context, mainProvider, child) {
         return Container(
           decoration: const BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(0, -5),
+                color: Colors.black26,
+                blurRadius: 30,
+              ),
+            ],
             color: Colors.white,
             borderRadius: BorderRadius.only(
               topRight: Radius.circular(30),
