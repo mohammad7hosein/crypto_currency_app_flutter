@@ -41,7 +41,7 @@ class MainWrapper extends StatelessWidget {
           decoration: const BoxDecoration(
             boxShadow: [
               BoxShadow(
-                offset: Offset(0, -5),
+                offset: Offset(0, -1),
                 color: Colors.black26,
                 blurRadius: 30,
               ),

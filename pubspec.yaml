@@ -37,6 +37,14 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   hive_generator: ^1.1.3
   build_runner: ^2.2.0
+  flutter_launcher_icons: ^0.10.0
+
+flutter_icons:
+  image_path: "assets/images/bitcoin.png"
+  android: true
+  ios : true
+  min_sdk_android: 21
+
 
 flutter:
   generate: true
