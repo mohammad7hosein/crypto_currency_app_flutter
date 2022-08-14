@@ -4,37 +4,42 @@ import 'package:cripto_currency_app_flutter/utils/decimal_rounder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import '../../constants/my_url.dart';
 import '../../data/models/crypto_models/crypto_data.dart';
 
 class CryptoItem extends StatelessWidget {
-  final List<CryptoData>? items;
+  final CryptoData item;
   final int index;
 
-  const CryptoItem({Key? key, required this.items, required this.index})
-      : super(key: key);
+  const CryptoItem({
+    Key? key, required this.item, required this.index,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    var tokenId = items![index].id;
+    var tokenId = item.id;
     var finalPrice =
-        DecimalRounder.removePriceDecimals(items![index].quotes![0].price);
+        DecimalRounder.removePriceDecimals(item.quotes![0].price);
     var percentChange = DecimalRounder.removePercentDecimals(
-        items![index].quotes![0].percentChange24h);
+        item.quotes![0].percentChange24h);
     MaterialColor filterColor = DecimalRounder.setColorFilter(
-        items![index].quotes![0].percentChange24h);
+        item.quotes![0].percentChange24h);
     Color percentColor = DecimalRounder.setPercentChangesColor(
-        items![index].quotes![0].percentChange24h);
+        item.quotes![0].percentChange24h);
     Icon percentIcon = DecimalRounder.setPercentChangesIcon(
-        items![index].quotes![0].percentChange24h);
+        item.quotes![0].percentChange24h);
 
     return InkWell(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => DetailsScreen(item: items![index],),
+            builder: (context) => DetailsScreen(
+              item: item,
+              index: index,
+            ),
           ),
         );
       },
@@ -61,13 +66,13 @@ class CryptoItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    items![index].name.toString(),
+                    item.name.toString(),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                   Text(
-                    items![index].symbol.toString(),
+                    item.symbol.toString(),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.labelSmall,

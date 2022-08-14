@@ -1,8 +1,8 @@
 import 'package:cripto_currency_app_flutter/constants/my_theme.dart';
 import 'package:cripto_currency_app_flutter/providers/home_screen_provider.dart';
-import 'package:cripto_currency_app_flutter/ui/components/my_divider.dart';
 import 'package:cripto_currency_app_flutter/ui/components/crypto_item.dart';
 import 'package:cripto_currency_app_flutter/ui/components/home_page_view.dart';
+import 'package:cripto_currency_app_flutter/ui/components/my_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -33,8 +33,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -105,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           .cryptoData.data!.cryptoCurrencyList;
                       return ListView.separated(
                         itemBuilder: (context, index) {
-                          return CryptoItem(items: items, index: index);
+                          return CryptoItem(item: items![index], index: index,);
                         },
                         separatorBuilder: (context, index) {
                           return MyDivider(
@@ -114,7 +112,29 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemCount: items!.length,
                       );
                     case StateData.ERROR:
-                      return Text(cryptoDataProvider.state.message);
+                      return Center(
+                       child: ElevatedButton(
+                         style: ElevatedButton.styleFrom(
+                           primary: Theme.of(context).focusColor,
+                           shape: RoundedRectangleBorder(
+                             borderRadius: BorderRadius.circular(50),
+                           ),
+                         ),
+                         onPressed: () {
+                           cryptoDataProvider.getTopMarketCapsData();
+                         },
+                         child: Padding(
+                           padding: const EdgeInsets.all(8.0),
+                           child: Text(
+                             "Retry",
+                             style: GoogleFonts.ubuntu(
+                                 color: Colors.white,
+                                 fontSize: 15,
+                                 fontWeight: FontWeight.bold),
+                           ),
+                         ),
+                       ),
+                      );
                     default:
                       return const ShimmerEffect();
                   }

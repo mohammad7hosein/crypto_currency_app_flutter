@@ -71,13 +71,14 @@ class MyTheme {
           color: Colors.black, fontSize: 28, fontWeight: FontWeight.bold),
       titleMedium:
           GoogleFonts.ubuntu(fontSize: 26, fontWeight: FontWeight.bold),
+      titleSmall: GoogleFonts.ubuntu(fontSize: 20, fontWeight: FontWeight.bold),
       bodySmall: GoogleFonts.ubuntu(color: Colors.black, fontSize: 15),
+      bodyMedium: GoogleFonts.ubuntu(color: Colors.black, fontSize: 13),
       labelSmall: GoogleFonts.ubuntu(color: Colors.black38, fontSize: 13),
       labelMedium: GoogleFonts.ubuntu(
           fontWeight: FontWeight.w600, fontSize: 14, color: Colors.black38),
       labelLarge: GoogleFonts.ubuntu(
           fontWeight: FontWeight.bold, fontSize: 14, color: Colors.black),
-      titleSmall: GoogleFonts.ubuntu(fontSize: 20, fontWeight: FontWeight.bold),
     ),
     unselectedWidgetColor: Colors.white54,
     disabledColor: Colors.black26,

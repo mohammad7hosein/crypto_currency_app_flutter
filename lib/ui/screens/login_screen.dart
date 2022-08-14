@@ -108,6 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 height: height * 0.02,
                               ),*/
                               TextFormField(
+                                style: Theme.of(context).textTheme.bodySmall,
                                 decoration: const InputDecoration(
                                   hintText: "Email",
                                   prefixIcon: Icon(
@@ -129,6 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 height: height * 0.02,
                               ),
                               TextFormField(
+                                style: Theme.of(context).textTheme.bodySmall,
                                 obscureText: true,
                                 decoration: const InputDecoration(
                                   hintText: "Password",

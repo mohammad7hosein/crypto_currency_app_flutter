@@ -1,17 +1,38 @@
+import 'package:cripto_currency_app_flutter/constants/my_key.dart';
 import 'package:cripto_currency_app_flutter/constants/my_theme.dart';
+import 'package:cripto_currency_app_flutter/providers/details_screen_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
+import 'package:provider/provider.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 import '../../constants/my_url.dart';
 import '../../data/models/crypto_models/crypto_data.dart';
 import '../../utils/decimal_rounder.dart';
 
-class DetailsScreen extends StatelessWidget {
+class DetailsScreen extends StatefulWidget {
   final CryptoData item;
+  final int index;
 
-  const DetailsScreen({Key? key, required this.item}) : super(key: key);
+  const DetailsScreen({Key? key, required this.item, required this.index})
+      : super(key: key);
+
+  @override
+  State<DetailsScreen> createState() => _DetailsScreenState();
+}
+
+class _DetailsScreenState extends State<DetailsScreen> {
+  late Box<CryptoData> cryptoBox;
+
+
+  @override
+  void initState() {
+    super.initState();
+    cryptoBox = Hive.box(CRYPTO_BOX);
+    context.read<DetailsScreenProvider>().setFavorite(widget.item.isMark);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +74,7 @@ class DetailsScreen extends StatelessWidget {
 
   Expanded buildMarketStatistic(BuildContext context) {
     var marketCapitalization = DecimalRounder.removePriceDecimals(
-        item.quotes![0].marketCapByTotalSupply);
+        widget.item.quotes![0].marketCapByTotalSupply);
 
     return Expanded(
       child: Container(
@@ -80,7 +101,7 @@ class DetailsScreen extends StatelessWidget {
                 children: [
                   Text("Market capitalization",
                       style: Theme.of(context).textTheme.labelMedium),
-                  Text("\$${item.circulatingSupply}",
+                  Text("\$${widget.item.circulatingSupply}",
                       style: Theme.of(context).textTheme.labelLarge)
                 ],
               ),
@@ -102,9 +123,9 @@ class DetailsScreen extends StatelessWidget {
   }
 
   SizedBox buildChart(Size size) {
-    var tokenId = item.id;
+    var tokenId = widget.item.id;
     MaterialColor filterColor =
-        DecimalRounder.setColorFilter(item.quotes![0].percentChange24h);
+        DecimalRounder.setColorFilter(widget.item.quotes![0].percentChange24h);
     return SizedBox(
       width: double.infinity,
       height: size.height * 0.3,
@@ -164,13 +185,14 @@ class DetailsScreen extends StatelessWidget {
   }
 
   Column buildAppbar(BuildContext context) {
-    var finalPrice = DecimalRounder.removePriceDecimals(item.quotes![0].price);
-    var percentChange =
-        DecimalRounder.removePercentDecimals(item.quotes![0].percentChange24h);
-    Color percentColor =
-        DecimalRounder.setPercentChangesColor(item.quotes![0].percentChange24h);
-    Icon percentIcon =
-        DecimalRounder.setPercentChangesIcon(item.quotes![0].percentChange24h);
+    var finalPrice =
+        DecimalRounder.removePriceDecimals(widget.item.quotes![0].price);
+    var percentChange = DecimalRounder.removePercentDecimals(
+        widget.item.quotes![0].percentChange24h);
+    Color percentColor = DecimalRounder.setPercentChangesColor(
+        widget.item.quotes![0].percentChange24h);
+    Icon percentIcon = DecimalRounder.setPercentChangesIcon(
+        widget.item.quotes![0].percentChange24h);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -196,7 +218,7 @@ class DetailsScreen extends StatelessWidget {
                 ),
               ),
               Text(
-                "${item.name} (${item.symbol})",
+                "${widget.item.name} (${widget.item.symbol})",
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               Container(
@@ -206,10 +228,20 @@ class DetailsScreen extends StatelessWidget {
                 ),
                 child: IconButton(
                   icon: Icon(
+                    context.watch<DetailsScreenProvider>().isFavorite
+                        ? Icons.bookmark_rounded :
                     Icons.bookmark_outline_rounded,
                     color: Theme.of(context).focusColor,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    if (widget.item.isMark) {
+                      cryptoBox.deleteAt(widget.index);
+                    } else {
+                      cryptoBox.add(widget.item);
+                    }
+                    widget.item.isMark = !widget.item.isMark;
+                    context.read<DetailsScreenProvider>().setFavorite(widget.item.isMark);
+                  },
                 ),
               ),
             ],

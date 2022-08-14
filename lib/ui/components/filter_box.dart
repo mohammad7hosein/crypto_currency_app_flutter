@@ -19,8 +19,6 @@ class FilterBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width - 60;
-
     return InkWell(
       onTap: onPressed,
       borderRadius: BorderRadius.circular(20),
@@ -52,7 +50,7 @@ class FilterBox extends StatelessWidget {
               ),
               Text(
                 text,
-                style: const TextStyle(fontSize: 13),
+                style: Theme.of(context).textTheme.bodyMedium,
               ),
             ],
           ),

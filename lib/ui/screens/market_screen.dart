@@ -2,6 +2,7 @@ import 'package:cripto_currency_app_flutter/providers/market_screen_provider.dar
 import 'package:cripto_currency_app_flutter/ui/components/crypto_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/data_source/response_model.dart';
@@ -62,7 +63,10 @@ class _MarketScreenState extends State<MarketScreen> {
               return Expanded(
                 child: ListView.separated(
                   itemBuilder: (context, index) {
-                    return CryptoItem(items: items, index: index);
+                    return CryptoItem(
+                      item: items![index],
+                      index: index,
+                    );
                   },
                   separatorBuilder: (context, index) {
                     return MyDivider(color: Colors.grey[350]!, margin: 15);
@@ -71,7 +75,29 @@ class _MarketScreenState extends State<MarketScreen> {
                 ),
               );
             case StateData.ERROR:
-              return Text(cryptoDataProvider.state.message);
+              return Center(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Theme.of(context).focusColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                  ),
+                  onPressed: () {
+                    cryptoDataProvider.getAllCryptoData();
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Retry",
+                      style: GoogleFonts.ubuntu(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              );
             default:
               return const ShimmerEffect();
           }
