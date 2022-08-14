@@ -28,7 +28,7 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   path_provider: ^2.0.11
-
+  flutter_native_splash: ^2.2.7
 
 dev_dependencies:
   flutter_test:
@@ -42,8 +42,13 @@ dev_dependencies:
 flutter_icons:
   image_path: "assets/images/bitcoin.png"
   android: true
-  ios : true
+  ios: true
   min_sdk_android: 21
+
+flutter_native_splash:
+  color: "#231f2d"
+  image: "assets/images/bitcoin.png"
+
 
 
 flutter:

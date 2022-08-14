@@ -13,6 +13,7 @@ import 'package:cripto_currency_app_flutter/ui/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,11 +26,11 @@ void main() async {
       statusBarIconBrightness: Brightness.dark, // status bar color
     ),
   );
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-  final appDocumentDirectory =
-      await path_provider.getApplicationDocumentsDirectory();
+  final appDocumentDirectory = await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDirectory.path);
   Hive.registerAdapter<CryptoData>(CryptoDataAdapter());
   Hive.registerAdapter<Quotes>(QuotesAdapter());
@@ -58,6 +59,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+  @override
+  void initState() {
+    super.initState();
+    FlutterNativeSplash.remove();
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -90,13 +98,11 @@ class _MyAppState extends State<MyApp> {
               future: SharedPreferences.getInstance(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  var isLoggedIn =
-                      snapshot.data!.getBool(IS_LOGGED_IN) ?? false;
+                  var isLoggedIn = snapshot.data!.getBool(IS_LOGGED_IN) ?? false;
                   return isLoggedIn ? const MainWrapper() : const LoginScreen();
-                } else {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
+                }
+                else {
+                  return const Scaffold();
                 }
               },
             ),
