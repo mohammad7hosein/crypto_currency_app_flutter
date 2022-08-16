@@ -30,6 +30,8 @@ dependencies:
   path_provider: ^2.0.11
   flutter_native_splash: ^2.2.7
   loading_animation_widget:
+  cloud_firestore:
+  firebase_auth:
 
 dev_dependencies:
   flutter_test:

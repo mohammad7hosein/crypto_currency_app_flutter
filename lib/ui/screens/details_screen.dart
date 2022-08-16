@@ -11,6 +11,7 @@ import 'package:toggle_switch/toggle_switch.dart';
 import '../../constants/my_url.dart';
 import '../../data/models/crypto_models/crypto_data.dart';
 import '../../utils/decimal_rounder.dart';
+import '../components/my_snackBar.dart';
 
 class DetailsScreen extends StatefulWidget {
   final CryptoData item;
@@ -269,23 +270,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
           ],
         ),
       ],
-    );
-  }
-
-  SnackBar buildSnackBar(BuildContext context, String text) {
-    return SnackBar(
-      content: Text(
-        text,
-        style: GoogleFonts.ubuntu(color: Colors.white, fontSize: 14),
-        textAlign: TextAlign.center,
-      ),
-      backgroundColor: purpleLight,
-      padding: const EdgeInsets.all(25),
-      margin: const EdgeInsets.all(30),
-      behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
     );
   }
 }

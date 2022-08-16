@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -38,22 +39,25 @@ class ProfileScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 20),
           child: Column(
             children: [
-              const ProfileMenuItem(
+              ProfileMenuItem(
                 text: "Bank Account",
                 icon: Icons.credit_card_rounded,
                 color: Colors.pink,
+                onPressed: () {},
               ),
               MyDivider(color: Colors.grey[300]!, margin: 30),
               ProfileMenuItem(
                 text: "Preferences",
                 icon: Icons.settings_rounded,
                 color: Colors.amber[400]!,
+                onPressed: () {},
               ),
               MyDivider(color: Colors.grey[300]!, margin: 30),
-              const ProfileMenuItem(
+              ProfileMenuItem(
                 text: "Account Security",
                 icon: Icons.lock_outline_rounded,
                 color: purpleLight,
+                onPressed: () {},
               ),
               Container(
                 margin: const EdgeInsets.only(bottom: 25, left: 80, right: 100),
@@ -72,10 +76,13 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               MyDivider(color: Colors.grey[300]!, margin: 30),
-              const ProfileMenuItem(
+              ProfileMenuItem(
                 text: "Log out",
                 icon: Icons.logout_rounded,
                 color: Colors.green,
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                },
               ),
               MyDivider(color: Colors.grey[300]!, margin: 30),
             ],
@@ -86,6 +93,7 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Stack buildAccountBanner() {
+    final user = FirebaseAuth.instance.currentUser!;
     return Stack(
       children: [
         Container(
@@ -110,7 +118,7 @@ class ProfileScreen extends StatelessWidget {
                 height: 15,
               ),
               Text(
-                "mohammad77hosein77@gmail.com",
+                user.email!,
                 style: GoogleFonts.ubuntu(
                   fontSize: 13,
                   color: Colors.white,

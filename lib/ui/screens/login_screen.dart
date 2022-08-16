@@ -1,10 +1,12 @@
 import 'package:cripto_currency_app_flutter/constants/my_theme.dart';
-import 'package:cripto_currency_app_flutter/providers/login_screen_provider.dart';
-import 'package:cripto_currency_app_flutter/ui/components/main_wrapper.dart';
+import 'package:cripto_currency_app_flutter/ui/components/my_snackBar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+
+import '../../main.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -38,7 +40,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<LoginScreenProvider>(context);
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 
@@ -180,13 +181,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
-                                  provider.saveLoggedIn();
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const MainWrapper(),
-                                    ),
-                                  );
+                                  signIn();
                                 }
                               },
                               child: Text(
@@ -204,52 +199,52 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: height * 0.12,
                       ),
                       Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(10),
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                                shape: BoxShape.circle,
-                              ),
-                              child: SvgPicture.asset(
-                                "assets/icons/facebook.svg",
-                                width: 24,
-                                height: 24,
-                              ),
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
                             ),
-                            const SizedBox(
-                              width: 30,
+                            child: SvgPicture.asset(
+                              "assets/icons/facebook.svg",
+                              width: 24,
+                              height: 24,
                             ),
-                            Container(
-                              padding: const EdgeInsets.all(10),
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                                shape: BoxShape.circle,
-                              ),
-                              child: SvgPicture.asset(
-                                "assets/icons/google.svg",
-                                width: 24,
-                                height: 24,
-                              ),
+                          ),
+                          const SizedBox(
+                            width: 30,
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
                             ),
-                            const SizedBox(
-                              width: 30,
+                            child: SvgPicture.asset(
+                              "assets/icons/google.svg",
+                              width: 24,
+                              height: 24,
                             ),
-                            Container(
-                              padding: const EdgeInsets.all(10),
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                                shape: BoxShape.circle,
-                              ),
-                              child: SvgPicture.asset(
-                                "assets/icons/apple.svg",
-                                width: 24,
-                                height: 24,
-                              ),
+                          ),
+                          const SizedBox(
+                            width: 30,
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
                             ),
-                          ],
-                        ),
+                            child: SvgPicture.asset(
+                              "assets/icons/apple.svg",
+                              width: 24,
+                              height: 24,
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -259,5 +254,29 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  Future signIn() async {
+    showDialog(
+      context: context,
+      builder: (context) => Center(
+        child: LoadingAnimationWidget.staggeredDotsWave(
+          color: Colors.white,
+          size: 50,
+        ),
+      ),
+    );
+
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.message == null) return;
+      ScaffoldMessenger.of(context).showSnackBar(buildSnackBar(context, e.message!));
+    }
+
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }

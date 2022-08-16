@@ -4,9 +4,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreenProvider extends ChangeNotifier {
 
-  Future<void> saveLoggedIn() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setBool(IS_LOGGED_IN, true);
+ bool _isLoading = false;
+
+ bool get isLoading => _isLoading;
+
+ set isLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
   }
 
 }

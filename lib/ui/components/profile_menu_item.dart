@@ -6,18 +6,19 @@ class ProfileMenuItem extends StatelessWidget {
   final String text;
   final IconData icon;
   final Color color;
+  final VoidCallback onPressed;
 
   const ProfileMenuItem({
     required this.text,
     required this.icon,
     required this.color,
-    Key? key,
+    Key? key, required this.onPressed,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: onPressed,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 25),
         child: Row(

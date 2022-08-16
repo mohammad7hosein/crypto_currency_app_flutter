@@ -2,23 +2,24 @@ import 'package:cripto_currency_app_flutter/constants/my_key.dart';
 import 'package:cripto_currency_app_flutter/constants/my_theme.dart';
 import 'package:cripto_currency_app_flutter/data/models/crypto_models/crypto_data.dart';
 import 'package:cripto_currency_app_flutter/data/models/crypto_models/quotes.dart';
+import 'package:cripto_currency_app_flutter/providers/bottom_navigation_provider.dart';
 import 'package:cripto_currency_app_flutter/providers/details_screen_provider.dart';
 import 'package:cripto_currency_app_flutter/providers/home_screen_provider.dart';
-import 'package:cripto_currency_app_flutter/providers/bottom_navigation_provider.dart';
-import 'package:cripto_currency_app_flutter/providers/market_screen_provider.dart';
 import 'package:cripto_currency_app_flutter/providers/login_screen_provider.dart';
+import 'package:cripto_currency_app_flutter/providers/market_screen_provider.dart';
 import 'package:cripto_currency_app_flutter/providers/theme_provider.dart';
 import 'package:cripto_currency_app_flutter/ui/components/main_wrapper.dart';
 import 'package:cripto_currency_app_flutter/ui/screens/login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hive/hive.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:provider/provider.dart';
 
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(
@@ -27,9 +28,10 @@ void main() async {
       statusBarIconBrightness: Brightness.dark, // status bar color
     ),
   );
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   final appDocumentDirectory =
       await path_provider.getApplicationDocumentsDirectory();
@@ -52,6 +54,8 @@ void main() async {
     ),
   );
 }
+
+final navigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -78,6 +82,7 @@ class _MyAppState extends State<MyApp> {
     return Consumer<ThemeProvider>(
       builder: (context, themeProvider, child) {
         return MaterialApp(
+          navigatorKey: navigatorKey,
           locale: const Locale('en', ''),
           localizationsDelegates: const [
             // AppLocalizations.delegate,
@@ -95,20 +100,26 @@ class _MyAppState extends State<MyApp> {
           debugShowCheckedModeBanner: false,
           home: Directionality(
             textDirection: TextDirection.ltr,
-            child: FutureBuilder<SharedPreferences>(
-              future: SharedPreferences.getInstance(),
+            child: StreamBuilder<User?>(
+              stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  var isLoggedIn =
-                      snapshot.data!.getBool(IS_LOGGED_IN) ?? false;
-                  return isLoggedIn ? const MainWrapper() : const LoginScreen();
-                } else {
+                if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
-                    child: LoadingAnimationWidget.waveDots(
+                      child: LoadingAnimationWidget.staggeredDotsWave(
                         color: Colors.white,
                         size: 50,
+                      ),
+                  );
+                } else if (snapshot.hasError) {
+                  return Center(
+                    child: Text(
+                      snapshot.error.toString(),
                     ),
                   );
+                } else if (snapshot.hasData) {
+                  return const MainWrapper();
+                } else {
+                  return const LoginScreen();
                 }
               },
             ),
