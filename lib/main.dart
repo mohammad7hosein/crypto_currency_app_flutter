@@ -15,6 +15,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hive/hive.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
@@ -30,7 +31,8 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-  final appDocumentDirectory = await path_provider.getApplicationDocumentsDirectory();
+  final appDocumentDirectory =
+      await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDirectory.path);
   Hive.registerAdapter<CryptoData>(CryptoDataAdapter());
   Hive.registerAdapter<Quotes>(QuotesAdapter());
@@ -59,7 +61,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   void initState() {
     super.initState();
@@ -98,11 +99,16 @@ class _MyAppState extends State<MyApp> {
               future: SharedPreferences.getInstance(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  var isLoggedIn = snapshot.data!.getBool(IS_LOGGED_IN) ?? false;
+                  var isLoggedIn =
+                      snapshot.data!.getBool(IS_LOGGED_IN) ?? false;
                   return isLoggedIn ? const MainWrapper() : const LoginScreen();
-                }
-                else {
-                  return const Scaffold();
+                } else {
+                  return Center(
+                    child: LoadingAnimationWidget.waveDots(
+                        color: Colors.white,
+                        size: 50,
+                    ),
+                  );
                 }
               },
             ),

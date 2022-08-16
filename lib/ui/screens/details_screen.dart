@@ -26,7 +26,6 @@ class DetailsScreen extends StatefulWidget {
 class _DetailsScreenState extends State<DetailsScreen> {
   late Box<CryptoData> cryptoBox;
 
-
   @override
   void initState() {
     super.initState();
@@ -229,18 +228,26 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 child: IconButton(
                   icon: Icon(
                     context.watch<DetailsScreenProvider>().isFavorite
-                        ? Icons.bookmark_rounded :
-                    Icons.bookmark_outline_rounded,
+                        ? Icons.bookmark_rounded
+                        : Icons.bookmark_outline_rounded,
                     color: Theme.of(context).focusColor,
                   ),
                   onPressed: () {
                     if (widget.item.isMark) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        buildSnackBar(context, "This coin removed from watchList"),
+                      );
                       cryptoBox.deleteAt(widget.index);
                     } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        buildSnackBar(context, "This coin added to watchList"),
+                      );
                       cryptoBox.add(widget.item);
                     }
                     widget.item.isMark = !widget.item.isMark;
-                    context.read<DetailsScreenProvider>().setFavorite(widget.item.isMark);
+                    context
+                        .read<DetailsScreenProvider>()
+                        .setFavorite(widget.item.isMark);
                   },
                 ),
               ),
@@ -262,6 +269,23 @@ class _DetailsScreenState extends State<DetailsScreen> {
           ],
         ),
       ],
+    );
+  }
+
+  SnackBar buildSnackBar(BuildContext context, String text) {
+    return SnackBar(
+      content: Text(
+        text,
+        style: GoogleFonts.ubuntu(color: Colors.white, fontSize: 14),
+        textAlign: TextAlign.center,
+      ),
+      backgroundColor: purpleLight,
+      padding: const EdgeInsets.all(25),
+      margin: const EdgeInsets.all(30),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
     );
   }
 }

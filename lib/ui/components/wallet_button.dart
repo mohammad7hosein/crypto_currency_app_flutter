@@ -19,6 +19,7 @@ class WalletButton extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {},
+          borderRadius: BorderRadius.circular(50),
           child: Container(
             width: 60,
             height: 60,

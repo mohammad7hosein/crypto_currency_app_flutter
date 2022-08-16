@@ -29,6 +29,7 @@ dependencies:
   hive_flutter: ^1.1.0
   path_provider: ^2.0.11
   flutter_native_splash: ^2.2.7
+  loading_animation_widget:
 
 dev_dependencies:
   flutter_test:
@@ -48,8 +49,6 @@ flutter_icons:
 flutter_native_splash:
   color: "#231f2d"
   image: "assets/images/bitcoin.png"
-
-
 
 flutter:
   generate: true
