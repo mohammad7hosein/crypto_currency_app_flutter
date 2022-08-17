@@ -18,8 +18,8 @@ class CircularIconButton extends StatelessWidget {
       borderRadius: BorderRadius.circular(30),
       child: Container(
         padding: const EdgeInsets.all(10),
-        decoration: const BoxDecoration(
-          color: Colors.white,
+        decoration: BoxDecoration(
+          color: Theme.of(context).secondaryHeaderColor,
           shape: BoxShape.circle,
         ),
         child: SvgPicture.asset(

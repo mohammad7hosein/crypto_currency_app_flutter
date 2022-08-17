@@ -38,7 +38,7 @@ class ProfileMenuItem extends StatelessWidget {
             const Spacer(),
             const Icon(
               Icons.arrow_forward_ios_rounded,
-              color: greyColor,
+              color: gray,
               size: 20,
             ),
           ],

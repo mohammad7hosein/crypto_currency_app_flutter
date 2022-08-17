@@ -2,7 +2,6 @@ import 'package:cripto_currency_app_flutter/providers/market_screen_provider.dar
 import 'package:cripto_currency_app_flutter/ui/components/crypto_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/data_source/response_model.dart';
@@ -37,21 +36,22 @@ class _MarketScreenState extends State<MarketScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
-            buildAppBar(context),
-            buildSearchBox(context),
+            buildAppBar(theme),
+            buildSearchBox(theme),
             buildFilterBoxes(context),
-            buildCryptoList(),
+            buildCryptoList(theme),
           ],
         ),
       ),
     );
   }
 
-  Expanded buildCryptoList() {
+  Expanded buildCryptoList(ThemeData theme) {
     return Expanded(
       child: Consumer<MarketScreenProvider>(
         builder: (context, cryptoDataProvider, child) {
@@ -69,7 +69,7 @@ class _MarketScreenState extends State<MarketScreen> {
                     );
                   },
                   separatorBuilder: (context, index) {
-                    return MyDivider(color: Colors.grey[350]!, margin: 15);
+                    return MyDivider(color: theme.dividerColor, margin: 15);
                   },
                   itemCount: items!.length,
                 ),
@@ -78,7 +78,7 @@ class _MarketScreenState extends State<MarketScreen> {
               return Center(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: Theme.of(context).focusColor,
+                    primary: theme.primaryColorDark,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50),
                     ),
@@ -89,11 +89,8 @@ class _MarketScreenState extends State<MarketScreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "Retry",
-                      style: GoogleFonts.ubuntu(
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold),
+                      "Try Again",
+                      style: theme.textTheme.labelLarge,
                     ),
                   ),
                 ),
@@ -151,20 +148,27 @@ class _MarketScreenState extends State<MarketScreen> {
     );
   }
 
-  Padding buildSearchBox(BuildContext context) {
+  Padding buildSearchBox(ThemeData theme) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              offset: const Offset(0, -1),
+              color: theme.shadowColor,
+              blurRadius: 30,
+            ),
+          ],
+          color: theme.secondaryHeaderColor,
           borderRadius: BorderRadius.circular(30),
         ),
         child: TextField(
-          style: Theme.of(context).textTheme.bodySmall,
+          style: theme.textTheme.bodySmall,
           onChanged: (value) {
             context.read<MarketScreenProvider>().configSearch(value);
           },
-          cursorColor: Colors.black,
+          cursorColor: theme.focusColor,
           cursorRadius: const Radius.circular(10),
           decoration: const InputDecoration(
             hintText: "Search",
@@ -177,14 +181,14 @@ class _MarketScreenState extends State<MarketScreen> {
     );
   }
 
-  Padding buildAppBar(BuildContext context) {
+  Padding buildAppBar(ThemeData theme) {
     return Padding(
       padding: const EdgeInsets.only(top: 20, left: 20),
       child: Row(
         children: [
           Text(
             "Market",
-            style: Theme.of(context).textTheme.titleLarge,
+            style: theme.textTheme.titleLarge,
           ),
         ],
       ),

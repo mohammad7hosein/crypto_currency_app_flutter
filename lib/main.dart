@@ -14,7 +14,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hive/hive.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -23,9 +22,9 @@ import 'package:provider/provider.dart';
 
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
+     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark, // status bar color
+      statusBarIconBrightness: Brightness.dark,
     ),
   );
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -83,17 +82,6 @@ class _MyAppState extends State<MyApp> {
       builder: (context, themeProvider, child) {
         return MaterialApp(
           navigatorKey: navigatorKey,
-          locale: const Locale('en', ''),
-          localizationsDelegates: const [
-            // AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: const [
-            Locale('en', ''), // English, no country code
-            Locale('fa', ''), // persian, no country code
-          ],
           themeMode: themeProvider.themeMode,
           darkTheme: MyTheme.darkTheme,
           theme: MyTheme.lightTheme,
@@ -105,10 +93,10 @@ class _MyAppState extends State<MyApp> {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
-                      child: LoadingAnimationWidget.staggeredDotsWave(
-                        color: Colors.white,
-                        size: 50,
-                      ),
+                    child: LoadingAnimationWidget.staggeredDotsWave(
+                      color: Colors.white,
+                      size: 50,
+                    ),
                   );
                 } else if (snapshot.hasError) {
                   return Center(

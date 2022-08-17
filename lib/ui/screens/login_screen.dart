@@ -45,14 +45,15 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    ThemeData theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: purpleDark,
+      backgroundColor: theme.primaryColorDark,
       body: SafeArea(
         child: Column(
           children: [
             Container(
-              color: purpleDark,
+              color: theme.primaryColorDark,
               height: height * 0.3,
               child: SvgPicture.asset("assets/images/mobile_login_2.svg"),
             ),
@@ -61,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: EdgeInsets.symmetric(
                     horizontal: width * 0.07, vertical: height * 0.02),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).scaffoldBackgroundColor,
+                  color: theme.scaffoldBackgroundColor,
                   borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(40),
                     topLeft: Radius.circular(40),
@@ -76,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       Text(
                         'Login',
-                        style: Theme.of(context).textTheme.titleLarge,
+                        style: theme.textTheme.titleLarge,
                       ),
                       SizedBox(
                         height: height * 0.03,
@@ -84,10 +85,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       Container(
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: theme.secondaryHeaderColor,
                           borderRadius: BorderRadius.circular(30),
                         ),
-                        child: buildForm(context, height),
+                        child: buildForm(context, theme, height),
                       ),
                       SizedBox(
                         height: height * 0.03,
@@ -98,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Text(
                             "Forgot Password?",
                             style: GoogleFonts.ubuntu(
-                              color: purpleDark,
+                              color: theme.primaryColorDark,
                               fontSize: 15,
                             ),
                           ),
@@ -107,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 50,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                primary: Theme.of(context).focusColor,
+                                primary: theme.focusColor,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(50),
                                 ),
@@ -120,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: Text(
                                 "Login",
                                 style: GoogleFonts.ubuntu(
-                                    color: Colors.white,
+                                    color: theme.secondaryHeaderColor,
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -145,80 +146,82 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Row buildLoginAccount(BuildContext context) {
     return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircularIconButton(
-                          onPressed: () {},
-                          icon: "assets/icons/facebook.svg",
-                        ),
-                        const SizedBox(width: 30),
-                        CircularIconButton(
-                          onPressed: () {
-                            context.read<LoginScreenProvider>().googleLogin();
-                          },
-                          icon: "assets/icons/google.svg",
-                        ),
-                        const SizedBox(width: 30),
-                        CircularIconButton(
-                          onPressed: () {},
-                          icon: "assets/icons/apple.svg",
-                        ),
-                      ],
-                    );
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        CircularIconButton(
+          onPressed: () {},
+          icon: "assets/icons/facebook.svg",
+        ),
+        const SizedBox(width: 30),
+        CircularIconButton(
+          onPressed: () {
+            context.read<LoginScreenProvider>().googleLogin();
+          },
+          icon: "assets/icons/google.svg",
+        ),
+        const SizedBox(width: 30),
+        CircularIconButton(
+          onPressed: () {},
+          icon: "assets/icons/apple.svg",
+        ),
+      ],
+    );
   }
 
-  Form buildForm(BuildContext context, double height) {
+  Form buildForm(BuildContext context, ThemeData theme, double height) {
     return Form(
-                        key: _formKey,
-                        child: Column(
-                          children: [
-                            TextFormField(
-                              style: Theme.of(context).textTheme.bodySmall,
-                              decoration: const InputDecoration(
-                                hintText: "Email",
-                                prefixIcon: Icon(
-                                  Icons.email_outlined,
-                                  color: purple,
-                                ),
-                              ),
-                              controller: emailController,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter gmail';
-                                } else if (!value.endsWith('@gmail.com')) {
-                                  return 'please enter valid gmail';
-                                }
-                                return null;
-                              },
-                            ),
-                            Divider(
-                              height: height * 0.02,
-                            ),
-                            TextFormField(
-                              style: Theme.of(context).textTheme.bodySmall,
-                              obscureText: true,
-                              decoration: const InputDecoration(
-                                hintText: "Password",
-                                prefixIcon: Icon(
-                                  Icons.lock_outline_rounded,
-                                  color: purple,
-                                ),
-                              ),
-                              controller: passwordController,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                } else if (value.length < 7) {
-                                  return 'at least enter 6 characters';
-                                } else if (value.length > 13) {
-                                  return 'maximum character is 13';
-                                }
-                                return null;
-                              },
-                            ),
-                          ],
-                        ),
-                      );
+      key: _formKey,
+      child: Column(
+        children: [
+          TextFormField(
+            style: theme.textTheme.bodySmall,
+            cursorColor: theme.focusColor,
+            decoration: InputDecoration(
+              hintText: "Email",
+              prefixIcon: Icon(
+                Icons.email_outlined,
+                color: theme.primaryColor,
+              ),
+            ),
+            controller: emailController,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter gmail';
+              } else if (!value.endsWith('@gmail.com')) {
+                return 'please enter valid gmail';
+              }
+              return null;
+            },
+          ),
+          Divider(
+            height: height * 0.02,
+          ),
+          TextFormField(
+            style: theme.textTheme.bodySmall,
+            obscureText: true,
+            cursorColor: theme.focusColor,
+            decoration: InputDecoration(
+              hintText: "Password",
+              prefixIcon: Icon(
+                Icons.lock_outline_rounded,
+                color: theme.primaryColor,
+              ),
+            ),
+            controller: passwordController,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter some text';
+              } else if (value.length < 7) {
+                return 'at least enter 6 characters';
+              } else if (value.length > 13) {
+                return 'maximum character is 13';
+              }
+              return null;
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   Future signIn() async {

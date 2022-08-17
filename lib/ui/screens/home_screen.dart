@@ -25,25 +25,24 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-
-    final cryptoProvider =
-        Provider.of<HomeScreenProvider>(context, listen: false);
-    cryptoProvider.getTopMarketCapsData();
+    Provider.of<HomeScreenProvider>(context, listen: false)
+        .getTopMarketCapsData();
   }
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
-            buildAppBar(context),
+            buildAppBar(theme),
             HomePageView(pageController: _pageController),
             Expanded(
               child: Column(
                 children: [
                   const SizedBox(height: 20),
-                  buildCryptoList(),
+                  buildCryptoList(theme),
                 ],
               ),
             ),
@@ -53,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Padding buildAppBar(BuildContext context) {
+  Padding buildAppBar(ThemeData theme) {
     return Padding(
       padding: const EdgeInsets.only(top: 20, left: 20, right: 5),
       child: Row(
@@ -61,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Text(
             "Home",
-            style: Theme.of(context).textTheme.titleLarge,
+            style: theme.textTheme.titleLarge,
           ),
           const ThemeSwitcher(),
         ],
@@ -69,11 +68,11 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Expanded buildCryptoList() {
+  Expanded buildCryptoList(ThemeData theme) {
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
-          color: veryLight,
+          color: theme.backgroundColor,
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(40),
             topRight: Radius.circular(40),
@@ -87,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Text(
                     "Trending",
-                    style: Theme.of(context).textTheme.titleSmall,
+                    style: theme.textTheme.titleSmall,
                   ),
                 ],
               ),
@@ -103,37 +102,37 @@ class _HomeScreenState extends State<HomeScreen> {
                           .cryptoData.data!.cryptoCurrencyList;
                       return ListView.separated(
                         itemBuilder: (context, index) {
-                          return CryptoItem(item: items![index], index: index,);
+                          return CryptoItem(
+                            item: items![index],
+                            index: index,
+                          );
                         },
                         separatorBuilder: (context, index) {
                           return MyDivider(
-                              color: Colors.grey[300]!, margin: 15);
+                              color: theme.dividerColor, margin: 15);
                         },
                         itemCount: items!.length,
                       );
                     case StateData.ERROR:
                       return Center(
-                       child: ElevatedButton(
-                         style: ElevatedButton.styleFrom(
-                           primary: Theme.of(context).focusColor,
-                           shape: RoundedRectangleBorder(
-                             borderRadius: BorderRadius.circular(50),
-                           ),
-                         ),
-                         onPressed: () {
-                           cryptoDataProvider.getTopMarketCapsData();
-                         },
-                         child: Padding(
-                           padding: const EdgeInsets.all(8.0),
-                           child: Text(
-                             "Retry",
-                             style: GoogleFonts.ubuntu(
-                                 color: Colors.white,
-                                 fontSize: 15,
-                                 fontWeight: FontWeight.bold),
-                           ),
-                         ),
-                       ),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: theme.primaryColorDark,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                          ),
+                          onPressed: () {
+                            cryptoDataProvider.getTopMarketCapsData();
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "Try Again",
+                              style: theme.textTheme.labelLarge,
+                            ),
+                          ),
+                        ),
                       );
                     default:
                       return const ShimmerEffect();

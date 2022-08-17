@@ -10,7 +10,7 @@ SnackBar buildSnackBar(BuildContext context, String text) {
       style: GoogleFonts.ubuntu(color: Colors.white, fontSize: 14),
       textAlign: TextAlign.center,
     ),
-    backgroundColor: purpleLight,
+    backgroundColor: purple,
     padding: const EdgeInsets.all(25),
     margin: const EdgeInsets.all(30),
     behavior: SnackBarBehavior.floating,

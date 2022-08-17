@@ -14,6 +14,7 @@ class WalletButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -23,8 +24,10 @@ class WalletButton extends StatelessWidget {
           child: Container(
             width: 60,
             height: 60,
-            decoration: const BoxDecoration(
-                color: Colors.white, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: theme.secondaryHeaderColor,
+              shape: BoxShape.circle,
+            ),
             child: Icon(
               icon,
               color: color,
@@ -36,7 +39,7 @@ class WalletButton extends StatelessWidget {
         ),
         Text(
           text,
-          style: Theme.of(context).textTheme.bodyMedium,
+          style: theme.textTheme.bodyMedium,
         )
       ],
     );

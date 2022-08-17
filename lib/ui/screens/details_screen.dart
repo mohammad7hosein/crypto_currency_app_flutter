@@ -37,23 +37,24 @@ class _DetailsScreenState extends State<DetailsScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    ThemeData theme = Theme.of(context);
 
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
-            buildAppbar(context),
-            buildToggleSwitch(),
+            buildAppbar(theme),
+            buildToggleSwitch(theme),
             buildChart(size),
-            buildButtons(context),
-            buildMarketStatistic(context),
+            buildButtons(theme),
+            buildMarketStatistic(theme),
           ],
         ),
       ),
     );
   }
 
-  Padding buildToggleSwitch() {
+  Padding buildToggleSwitch(ThemeData theme) {
     return Padding(
       padding: const EdgeInsets.all(20),
       child: ToggleSwitch(
@@ -61,9 +62,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
         totalSwitches: 4,
         labels: const ["24H", "1W", "1Y", "ALL"],
         cornerRadius: 20,
-        activeBgColor: const [Colors.white],
-        activeFgColor: Colors.black,
-        inactiveBgColor: testLight,
+        activeBgColor: [theme.secondaryHeaderColor],
+        activeFgColor: theme.focusColor,
+        inactiveBgColor: theme.unselectedWidgetColor,
         inactiveFgColor: Colors.grey,
         radiusStyle: true,
         dividerColor: Colors.transparent,
@@ -72,7 +73,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
     );
   }
 
-  Expanded buildMarketStatistic(BuildContext context) {
+  Expanded buildMarketStatistic(ThemeData theme) {
     var marketCapitalization = DecimalRounder.removePriceDecimals(
         widget.item.quotes![0].marketCapByTotalSupply);
 
@@ -80,7 +81,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: veryLight,
+          color: theme.backgroundColor,
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(35),
             topRight: Radius.circular(35),
@@ -93,26 +94,25 @@ class _DetailsScreenState extends State<DetailsScreen> {
             children: [
               Text(
                 "Market Statistic",
-                style: Theme.of(context).textTheme.titleSmall,
+                style: theme.textTheme.titleSmall,
               ),
               const SizedBox(height: 25),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("Market capitalization",
-                      style: Theme.of(context).textTheme.labelMedium),
+                      style: theme.textTheme.labelMedium),
                   Text("\$${widget.item.circulatingSupply}",
-                      style: Theme.of(context).textTheme.labelLarge)
+                      style: theme.textTheme.labelLarge)
                 ],
               ),
               const SizedBox(height: 25),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Circulating Suply",
-                      style: Theme.of(context).textTheme.labelMedium),
+                  Text("Circulating Suply", style: theme.textTheme.labelMedium),
                   Text("\$$marketCapitalization",
-                      style: Theme.of(context).textTheme.labelLarge)
+                      style: theme.textTheme.labelLarge)
                 ],
               ),
             ],
@@ -136,7 +136,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
     );
   }
 
-  Row buildButtons(BuildContext context) {
+  Row buildButtons(ThemeData theme) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
@@ -150,7 +150,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50),
                 ),
-                primary: Colors.white,
+                primary: theme.secondaryHeaderColor,
               ),
               onPressed: () {},
               child: Text(
@@ -170,12 +170,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50),
                 ),
-                primary: Theme.of(context).focusColor,
+                primary: theme.focusColor,
               ),
               onPressed: () {},
               child: Text(
                 "Buy Now",
-                style: GoogleFonts.ubuntu(color: Colors.white),
+                style: GoogleFonts.ubuntu(color: theme.secondaryHeaderColor),
               ),
             ),
           ),
@@ -184,7 +184,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
     );
   }
 
-  Column buildAppbar(BuildContext context) {
+  Column buildAppbar(ThemeData theme) {
     var finalPrice =
         DecimalRounder.removePriceDecimals(widget.item.quotes![0].price);
     var percentChange = DecimalRounder.removePercentDecimals(
@@ -203,9 +203,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.white,
+                  color: theme.secondaryHeaderColor,
                 ),
                 child: IconButton(
                   onPressed: () {
@@ -213,30 +213,31 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   },
                   icon: Icon(
                     Icons.arrow_back_ios_rounded,
-                    color: Theme.of(context).focusColor,
+                    color: theme.focusColor,
                   ),
                 ),
               ),
               Text(
                 "${widget.item.name} (${widget.item.symbol})",
-                style: Theme.of(context).textTheme.bodySmall,
+                style: theme.textTheme.bodySmall,
               ),
               Container(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.white,
+                  color: theme.secondaryHeaderColor,
                 ),
                 child: IconButton(
                   icon: Icon(
                     context.watch<DetailsScreenProvider>().isFavorite
                         ? Icons.bookmark_rounded
                         : Icons.bookmark_outline_rounded,
-                    color: Theme.of(context).focusColor,
+                    color: theme.focusColor,
                   ),
                   onPressed: () {
                     if (widget.item.isMark) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        buildSnackBar(context, "This coin removed from watchList"),
+                        buildSnackBar(
+                            context, "This coin removed from watchList"),
                       );
                       cryptoBox.deleteAt(widget.index);
                     } else {
@@ -257,7 +258,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
         ),
         Text(
           "\$$finalPrice",
-          style: Theme.of(context).textTheme.titleMedium,
+          style: theme.textTheme.titleMedium,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

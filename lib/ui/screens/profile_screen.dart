@@ -13,25 +13,26 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
-            buildAppBar(context),
+            buildAppBar(theme),
             buildAccountBanner(),
-            buildMenu(context),
+            buildMenu(context, theme),
           ],
         ),
       ),
     );
   }
 
-  Expanded buildMenu(BuildContext context) {
+  Expanded buildMenu(BuildContext context, ThemeData theme) {
     return Expanded(
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: veryLight,
+          color: theme.backgroundColor,
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(40),
             topRight: Radius.circular(40),
@@ -47,14 +48,14 @@ class ProfileScreen extends StatelessWidget {
                 color: Colors.pink,
                 onPressed: () {},
               ),
-              MyDivider(color: Colors.grey[300]!, margin: 30),
+              MyDivider(color: theme.dividerColor, margin: 30),
               ProfileMenuItem(
                 text: "Preferences",
                 icon: Icons.settings_rounded,
                 color: Colors.amber[400]!,
                 onPressed: () {},
               ),
-              MyDivider(color: Colors.grey[300]!, margin: 30),
+              MyDivider(color: theme.dividerColor, margin: 30),
               ProfileMenuItem(
                 text: "Account Security",
                 icon: Icons.lock_outline_rounded,
@@ -72,12 +73,12 @@ class ProfileScreen extends StatelessWidget {
                   margin: const EdgeInsets.only(right: 100),
                   height: 7,
                   decoration: BoxDecoration(
-                    color: purpleLight,
+                    color: theme.primaryColorLight,
                     borderRadius: BorderRadius.circular(50),
                   ),
                 ),
               ),
-              MyDivider(color: Colors.grey[300]!, margin: 30),
+              MyDivider(color: theme.dividerColor, margin: 30),
               ProfileMenuItem(
                 text: "Log out",
                 icon: Icons.logout_rounded,
@@ -86,7 +87,7 @@ class ProfileScreen extends StatelessWidget {
                   context.read<LoginScreenProvider>().logout();
                 },
               ),
-              MyDivider(color: Colors.grey[300]!, margin: 30),
+              MyDivider(color: theme.dividerColor, margin: 30),
             ],
           ),
         ),
@@ -143,14 +144,14 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Padding buildAppBar(BuildContext context) {
+  Padding buildAppBar(ThemeData theme) {
     return Padding(
       padding: const EdgeInsets.only(top: 20, left: 20),
       child: Row(
         children: [
           Text(
             "Account",
-            style: Theme.of(context).textTheme.titleLarge,
+            style: theme.textTheme.titleLarge,
           ),
         ],
       ),

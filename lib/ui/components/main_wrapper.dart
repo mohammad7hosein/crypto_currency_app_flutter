@@ -38,16 +38,16 @@ class MainWrapper extends StatelessWidget {
     return Consumer<BottomNavigationProvider>(
       builder: (context, mainProvider, child) {
         return Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                offset: Offset(0, -1),
-                color: Colors.black26,
+                offset: const Offset(0, -1),
+                color: theme.shadowColor,
                 blurRadius: 30,
               ),
             ],
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
+            color: theme.secondaryHeaderColor,
+            borderRadius: const BorderRadius.only(
               topRight: Radius.circular(30),
               topLeft: Radius.circular(30),
             ),

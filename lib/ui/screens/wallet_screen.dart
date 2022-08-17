@@ -27,13 +27,14 @@ class _WalletScreenState extends State<WalletScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
-            buildAppBar(context),
+            buildAppBar(theme),
             buildButtons(),
-            buildCryptoList(),
+            buildCryptoList(theme),
           ],
         ),
       ),
@@ -66,25 +67,25 @@ class _WalletScreenState extends State<WalletScreen> {
     );
   }
 
-  Padding buildAppBar(BuildContext context) {
+  Padding buildAppBar(ThemeData theme) {
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Row(
         children: [
           Text(
             "Wallet",
-            style: Theme.of(context).textTheme.titleLarge,
+            style: theme.textTheme.titleLarge,
           ),
         ],
       ),
     );
   }
 
-  Expanded buildCryptoList() {
+  Expanded buildCryptoList(ThemeData theme) {
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
-          color: veryLight,
+          color: theme.backgroundColor,
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(40),
             topRight: Radius.circular(40),
@@ -98,7 +99,7 @@ class _WalletScreenState extends State<WalletScreen> {
                 children: [
                   Text(
                     "WatchList",
-                    style: Theme.of(context).textTheme.titleSmall,
+                    style: theme.textTheme.titleSmall,
                   ),
                 ],
               ),
@@ -112,7 +113,7 @@ class _WalletScreenState extends State<WalletScreen> {
                     return Center(
                       child: Text(
                         "it's empty",
-                        style: Theme.of(context).textTheme.titleSmall,
+                        style: theme.textTheme.titleSmall,
                       ),
                     );
                   } else {
@@ -124,7 +125,7 @@ class _WalletScreenState extends State<WalletScreen> {
                         );
                       },
                       separatorBuilder: (context, index) {
-                        return MyDivider(color: Colors.grey[300]!, margin: 15);
+                        return MyDivider(color: theme.dividerColor, margin: 15);
                       },
                       itemCount: box.values.length,
                     );

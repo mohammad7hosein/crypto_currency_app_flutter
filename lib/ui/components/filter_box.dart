@@ -1,4 +1,3 @@
-import 'package:cripto_currency_app_flutter/constants/my_theme.dart';
 import 'package:flutter/material.dart';
 
 class FilterBox extends StatelessWidget {
@@ -19,6 +18,7 @@ class FilterBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
     return InkWell(
       onTap: onPressed,
       borderRadius: BorderRadius.circular(20),
@@ -27,7 +27,8 @@ class FilterBox extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: isSelected ? Colors.white : veryLight,
+          color:
+              isSelected ? theme.secondaryHeaderColor : theme.backgroundColor,
         ),
         child: AspectRatio(
           aspectRatio: 0.8,
@@ -50,7 +51,7 @@ class FilterBox extends StatelessWidget {
               ),
               Text(
                 text,
-                style: Theme.of(context).textTheme.bodyMedium,
+                style: theme.textTheme.bodyMedium,
               ),
             ],
           ),
