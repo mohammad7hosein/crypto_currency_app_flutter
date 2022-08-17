@@ -1,6 +1,8 @@
+import 'package:cripto_currency_app_flutter/providers/login_screen_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants/my_theme.dart';
 import '../components/my_divider.dart';
@@ -81,7 +83,7 @@ class ProfileScreen extends StatelessWidget {
                 icon: Icons.logout_rounded,
                 color: Colors.green,
                 onPressed: () {
-                  FirebaseAuth.instance.signOut();
+                  context.read<LoginScreenProvider>().logout();
                 },
               ),
               MyDivider(color: Colors.grey[300]!, margin: 30),
@@ -108,7 +110,7 @@ class ProfileScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Mohammad Hosein",
+                user.displayName ?? "Username",
                 style: GoogleFonts.ubuntu(
                   fontSize: 15,
                   color: Colors.white,

@@ -32,6 +32,7 @@ dependencies:
   loading_animation_widget:
   cloud_firestore:
   firebase_auth:
+  google_sign_in:
 
 dev_dependencies:
   flutter_test:

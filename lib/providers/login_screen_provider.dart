@@ -1,16 +1,38 @@
-import 'package:cripto_currency_app_flutter/constants/my_key.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginScreenProvider extends ChangeNotifier {
+  final googleSignIn = GoogleSignIn();
 
- bool _isLoading = false;
+  GoogleSignInAccount? _user;
 
- bool get isLoading => _isLoading;
+  GoogleSignInAccount get user => _user!;
 
- set isLoading(bool value) {
-    _isLoading = value;
+  Future googleLogin() async {
+    try {
+      final googleUser = await googleSignIn.signIn();
+      if (googleUser == null) return;
+      _user = googleUser;
+      
+      final googleAuth = await googleUser.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken
+      );
+      
+      await FirebaseAuth.instance.signInWithCredential(credential);
+    } on Exception catch (e) {
+      print(e.toString());
+    }
     notifyListeners();
+  }
+
+  Future logout() async {
+    if (await googleSignIn.isSignedIn()) {
+      await googleSignIn.disconnect();
+    }
+    FirebaseAuth.instance.signOut();
   }
 
 }

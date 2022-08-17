@@ -1,12 +1,15 @@
 import 'package:cripto_currency_app_flutter/constants/my_theme.dart';
+import 'package:cripto_currency_app_flutter/providers/login_screen_provider.dart';
 import 'package:cripto_currency_app_flutter/ui/components/my_snackBar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:provider/provider.dart';
 
 import '../../main.dart';
+import '../components/circular_icon_button.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -84,77 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(30),
                         ),
-                        child: Form(
-                          key: _formKey,
-                          child: Column(
-                            children: [
-                              /* TextFormField(
-                                decoration: const InputDecoration(
-                                  hintText: "Username",
-                                  prefixIcon: Icon(Icons.person_rounded),
-                                ),
-                                controller: nameController,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter username';
-                                  } else if (value.length < 4) {
-                                    return 'at least enter 4 characters';
-                                  } else if (value.length > 13) {
-                                    return 'maximum character is 13';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              Divider(
-                                height: height * 0.02,
-                              ),*/
-                              TextFormField(
-                                style: Theme.of(context).textTheme.bodySmall,
-                                decoration: const InputDecoration(
-                                  hintText: "Email",
-                                  prefixIcon: Icon(
-                                    Icons.email_outlined,
-                                    color: purple,
-                                  ),
-                                ),
-                                controller: emailController,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter gmail';
-                                  } else if (!value.endsWith('@gmail.com')) {
-                                    return 'please enter valid gmail';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              Divider(
-                                height: height * 0.02,
-                              ),
-                              TextFormField(
-                                style: Theme.of(context).textTheme.bodySmall,
-                                obscureText: true,
-                                decoration: const InputDecoration(
-                                  hintText: "Password",
-                                  prefixIcon: Icon(
-                                    Icons.lock_outline_rounded,
-                                    color: purple,
-                                  ),
-                                ),
-                                controller: passwordController,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter some text';
-                                  } else if (value.length < 7) {
-                                    return 'at least enter 6 characters';
-                                  } else if (value.length > 13) {
-                                    return 'maximum character is 13';
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
+                        child: buildForm(context, height),
                       ),
                       SizedBox(
                         height: height * 0.03,
@@ -198,53 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                         height: height * 0.12,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(10),
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                            ),
-                            child: SvgPicture.asset(
-                              "assets/icons/facebook.svg",
-                              width: 24,
-                              height: 24,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 30,
-                          ),
-                          Container(
-                            padding: const EdgeInsets.all(10),
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                            ),
-                            child: SvgPicture.asset(
-                              "assets/icons/google.svg",
-                              width: 24,
-                              height: 24,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 30,
-                          ),
-                          Container(
-                            padding: const EdgeInsets.all(10),
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                            ),
-                            child: SvgPicture.asset(
-                              "assets/icons/apple.svg",
-                              width: 24,
-                              height: 24,
-                            ),
-                          ),
-                        ],
-                      ),
+                      buildLoginAccount(context),
                     ],
                   ),
                 ),
@@ -254,6 +141,84 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  Row buildLoginAccount(BuildContext context) {
+    return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircularIconButton(
+                          onPressed: () {},
+                          icon: "assets/icons/facebook.svg",
+                        ),
+                        const SizedBox(width: 30),
+                        CircularIconButton(
+                          onPressed: () {
+                            context.read<LoginScreenProvider>().googleLogin();
+                          },
+                          icon: "assets/icons/google.svg",
+                        ),
+                        const SizedBox(width: 30),
+                        CircularIconButton(
+                          onPressed: () {},
+                          icon: "assets/icons/apple.svg",
+                        ),
+                      ],
+                    );
+  }
+
+  Form buildForm(BuildContext context, double height) {
+    return Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            TextFormField(
+                              style: Theme.of(context).textTheme.bodySmall,
+                              decoration: const InputDecoration(
+                                hintText: "Email",
+                                prefixIcon: Icon(
+                                  Icons.email_outlined,
+                                  color: purple,
+                                ),
+                              ),
+                              controller: emailController,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter gmail';
+                                } else if (!value.endsWith('@gmail.com')) {
+                                  return 'please enter valid gmail';
+                                }
+                                return null;
+                              },
+                            ),
+                            Divider(
+                              height: height * 0.02,
+                            ),
+                            TextFormField(
+                              style: Theme.of(context).textTheme.bodySmall,
+                              obscureText: true,
+                              decoration: const InputDecoration(
+                                hintText: "Password",
+                                prefixIcon: Icon(
+                                  Icons.lock_outline_rounded,
+                                  color: purple,
+                                ),
+                              ),
+                              controller: passwordController,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter some text';
+                                } else if (value.length < 7) {
+                                  return 'at least enter 6 characters';
+                                } else if (value.length > 13) {
+                                  return 'maximum character is 13';
+                                }
+                                return null;
+                              },
+                            ),
+                          ],
+                        ),
+                      );
   }
 
   Future signIn() async {
@@ -274,7 +239,8 @@ class _LoginScreenState extends State<LoginScreen> {
       );
     } on FirebaseAuthException catch (e) {
       if (e.message == null) return;
-      ScaffoldMessenger.of(context).showSnackBar(buildSnackBar(context, e.message!));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(buildSnackBar(context, e.message!));
     }
 
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
