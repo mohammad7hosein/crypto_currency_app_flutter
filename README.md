@@ -1,8 +1,8 @@
-# CryptoCurrency App wiht Flutter and Provider StateManagment
+# CryptoCurrency App wiht Flutter and Provider
 
 # Features:
 
-### Provider
+### StateManagment with Provider 
 ### Dio
 ### Hive
 ### Firebase
