@@ -1,11 +1,18 @@
-# CryptoCurrency App wiht Flutter and Provider
+# Crypto
+
+CryptoCurrency App wiht Flutter and Provider
+
+## Features:
+
+* StateManagment with Provider 
+* Dio
+* Hive
+* Firebase
+* Google SignIn
+* Clean Ligth and Dark Theme
 
 
+![Crypto](https://user-images.githubusercontent.com/72824898/185360858-7485ae41-3a15-40a6-95a5-685b50487ce6.png)
 
-![img1](https://user-images.githubusercontent.com/72824898/183098012-6605dbbe-ed56-441f-b567-947b3fa06352.png)
 
-![img2](https://user-images.githubusercontent.com/72824898/183098070-34d5dd30-31d9-43a2-a68d-1a3a0e1ac941.png)
-
-![img3](https://user-images.githubusercontent.com/72824898/183098082-e375ce69-c54b-46a5-a335-95643cfcf53b.png)
-
-design by : https://dribbble.com/shots/16175213-Robot-Wallet-Crypto-iOS-UI-Kit
+desig inspired by : https://dribbble.com/shots/16175213-Robot-Wallet-Crypto-iOS-UI-Kit
