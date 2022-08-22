@@ -78,11 +78,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ThemeProvider>(
-      builder: (context, themeProvider, child) {
         return MaterialApp(
           navigatorKey: navigatorKey,
-          themeMode: themeProvider.themeMode,
+          themeMode: Provider.of<ThemeProvider>(context).themeMode,
           darkTheme: MyTheme.darkTheme,
           theme: MyTheme.lightTheme,
           debugShowCheckedModeBanner: false,
@@ -113,7 +111,5 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
         );
-      },
-    );
   }
 }

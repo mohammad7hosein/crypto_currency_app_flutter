@@ -226,30 +226,33 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   shape: BoxShape.circle,
                   color: theme.secondaryHeaderColor,
                 ),
-                child: IconButton(
-                  icon: Icon(
-                    context.watch<DetailsScreenProvider>().isFavorite
-                        ? Icons.bookmark_rounded
-                        : Icons.bookmark_outline_rounded,
-                    color: theme.focusColor,
-                  ),
-                  onPressed: () {
-                    if (widget.item.isMark) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        buildSnackBar(
-                            context, "This coin removed from watchList"),
-                      );
-                      cryptoBox.deleteAt(widget.index);
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        buildSnackBar(context, "This coin added to watchList"),
-                      );
-                      cryptoBox.add(widget.item);
-                    }
-                    widget.item.isMark = !widget.item.isMark;
-                    context
-                        .read<DetailsScreenProvider>()
-                        .setFavorite(widget.item.isMark);
+                child: Consumer<DetailsScreenProvider>(
+                  builder: (context, provider, child) {
+                    return IconButton(
+                      icon: Icon(
+                        provider.isFavorite
+                            ? Icons.bookmark_rounded
+                            : Icons.bookmark_outline_rounded,
+                        color: theme.focusColor,
+                      ),
+                      onPressed: () {
+                        if (widget.item.isMark) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            buildSnackBar(
+                                context, "This coin removed from watchList"),
+                          );
+                          cryptoBox.deleteAt(widget.index);
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            buildSnackBar(
+                                context, "This coin added to watchList"),
+                          );
+                          cryptoBox.add(widget.item);
+                        }
+                        widget.item.isMark = !widget.item.isMark;
+                        provider.setFavorite(widget.item.isMark);
+                      },
+                    );
                   },
                 ),
               ),

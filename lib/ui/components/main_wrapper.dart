@@ -21,6 +21,7 @@ class MainWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           pages[context.watch<BottomNavigationProvider>().currentPage],
@@ -62,8 +63,8 @@ class MainWrapper extends StatelessWidget {
                 },
                 icon: SvgPicture.asset(
                   "assets/icons/home.svg",
-                  width: 28,
-                  height: 28,
+                  width: 26,
+                  height: 26,
                   color: mainProvider.currentPage == MyPage.Home.index
                       ? theme.focusColor
                       : theme.disabledColor,
@@ -88,8 +89,8 @@ class MainWrapper extends StatelessWidget {
                 },
                 icon: SvgPicture.asset(
                   "assets/icons/wallet_1.svg",
-                  width: 28,
-                  height: 28,
+                  width: 24,
+                  height: 24,
                   color: mainProvider.currentPage == MyPage.Wallet.index
                       ? theme.focusColor
                       : theme.disabledColor,
@@ -101,8 +102,8 @@ class MainWrapper extends StatelessWidget {
                 },
                 icon: SvgPicture.asset(
                   "assets/icons/user.svg",
-                  width: 28,
-                  height: 28,
+                  width: 26,
+                  height: 26,
                   color: mainProvider.currentPage == MyPage.Profile.index
                       ? theme.focusColor
                       : theme.disabledColor,
