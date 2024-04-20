@@ -1,6 +1,6 @@
 # Crypto
 
-CryptoCurrency App wiht Flutter and Provider
+CryptoCurrency App with Flutter and Provider
 
 ## Features:
 
